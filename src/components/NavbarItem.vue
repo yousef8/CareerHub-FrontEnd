@@ -10,7 +10,7 @@
           <router-link to="/" class="text-decoration-none text-dark">Home</router-link>
         </a>
         <a class="nav-item nav-link fs-4 me-lg-4 rounded-5">
-          <router-link to="/job" class="text-decoration-none text-dark">Jobs</router-link>
+          <router-link to="/jobs" class="text-decoration-none text-dark">Jobs</router-link>
         </a>
         <a class="nav-item nav-link fs-4 me-lg-4 rounded-5">
           <router-link to="/" class="text-decoration-none text-dark">Employers</router-link>
