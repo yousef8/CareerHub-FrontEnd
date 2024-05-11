@@ -7,5 +7,14 @@
     {
       "path": "./tsconfig.app.json"
     }
-  ]
+  ],
+  "compilerOptions": {
+    "allowJs": true,
+    // "esModuleInterop": true,
+    "baseUrl": "./src",
+    "types": [
+      "@types/node",
+      "@vue/compiler-sfc"
+    ]
+  }
 }
