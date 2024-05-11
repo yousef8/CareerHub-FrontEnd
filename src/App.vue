@@ -4,14 +4,14 @@
 
     <RouterView />
 
-    <Footer />
+    <AppFooter />
   </div>
 </template>
 
 <script setup lang="ts">
 import { RouterView } from 'vue-router'
 import NavbarItem from '@/components/NavbarItem.vue'
-import Footer from '@/components/Footer.vue'
+import AppFooter from '@/components/AppFooter.vue'
 </script>
 
 <style scoped>
@@ -21,7 +21,7 @@ import Footer from '@/components/Footer.vue'
   min-height: 100vh; 
 }
 
-Footer {
+AppFooter {
   margin-top: auto;
 }
 </style>
