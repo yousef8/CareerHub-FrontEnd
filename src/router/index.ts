@@ -7,7 +7,7 @@ import NotFoundView from '../views/NotFoundView.vue'
 
 import JobsView from '../views/candidate/JobsView.vue'
 import JobDetailsView from '../views/candidate/JobDetailsView.vue'
-import ProfileApplicationsView from '../views/candidate/ProfileApplicationsView.vue'
+import dynamicwrapper from '../views/candidate/dynamicwrapper.vue'
 
 import NewJobView from '../views/employer/NewJobView.vue'
 import EditJobView from '../views/employer/EditJobView.vue'
@@ -15,7 +15,7 @@ import OverviewView from '../views/employer/OverviewView.vue'
 
 import AdminView from '../views/admin/AdminView.vue'
 
-import dynamicwrapper from '../views/candidate/dynamicwrapper.vue'
+
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -45,11 +45,7 @@ const router = createRouter({
       name: 'job-details',
       component: JobDetailsView
     },
-    {
-      path: '/my',
-      name: 'profile-applications',
-      component: ProfileApplicationsView
-    },
+  
     {
       path: '/dynamic',
       name: 'dynamicComponent',
