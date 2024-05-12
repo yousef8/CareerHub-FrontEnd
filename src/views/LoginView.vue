@@ -39,7 +39,7 @@ export default {
 
 <style scoped>
 .login-container {
-    height: 100vh;
+    height: 100%;
     background-color: #ebebeb !important;
     background: radial-gradient(circle at 0px 0px, rgb(18, 70, 149), rgb(0, 112, 235)) 0px 0px / 100% 460px no-repeat;
 }
