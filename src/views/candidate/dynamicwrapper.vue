@@ -15,7 +15,7 @@
 </template>
 
 <script>
-import profileComponent from './components/dynamicComponent/profileComponent';
+import profileComponent from './views/candidate/profileComponent';
 import applicationComponent from './components/dynamicComponent/applicationComponent';
 
 export default {

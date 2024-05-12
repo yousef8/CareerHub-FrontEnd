@@ -15,6 +15,8 @@ import OverviewView from '../views/employer/OverviewView.vue'
 
 import AdminView from '../views/admin/AdminView.vue'
 
+import dynamicwrapper from '../views/candidate/dynamicwrapper.vue'
+
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -47,6 +49,11 @@ const router = createRouter({
       path: '/my',
       name: 'profile-applications',
       component: ProfileApplicationsView
+    },
+    {
+      path: '/dynamic',
+      name: 'dynamicComponent',
+      component: dynamicwrapper
     },
     {
       path: '/jobs/new',
