@@ -34,8 +34,6 @@
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
             <router-link to="/my" class="text-decoration-none text-white"><li><a class="dropdown-item fs-5" href="#">Profile</a></li></router-link>
             <li><a class="dropdown-item fs-5" href="#">Logout</a></li>
-            <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" href="#">Something else here</a></li>
           </ul>
         </li>
         <i class="fa-regular fa-circle-user fs-2 m-3"></i>
