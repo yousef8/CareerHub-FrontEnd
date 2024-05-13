@@ -29,9 +29,9 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { onMounted, ref } from 'vue'
 import { useUserStore } from '@/stores/user'
-import { useRouter } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 import { toast } from 'vue3-toastify'
 import 'vue3-toastify/dist/index.css'
 
@@ -39,6 +39,7 @@ const email = ref('')
 const password = ref('')
 const router = useRouter()
 const user = useUserStore()
+const route = useRoute()
 
 async function handleSubmit() {
   try {
@@ -54,6 +55,12 @@ async function handleSubmit() {
     toast.error(errorMessage)
   }
 }
+
+onMounted(() => {
+  if (route.query.registered) {
+    toast.success('Registered Successfully! Please log in')
+  }
+})
 </script>
 
 <style scoped>
