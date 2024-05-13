@@ -18,9 +18,9 @@
   </div>
 </template>
 
-<script>
-import JobCard from '@/components/JobCard.vue';
-import PaginationComponent from '@/components/PaginationComponent.vue'; 
+<script lang="ts">
+import JobCard from '@/components/JobCard.vue'
+import PaginationComponent from '@/components/PaginationComponent.vue'
 
 export default {
   components: {
@@ -33,49 +33,49 @@ export default {
       loading: false,
       currentPage: 1,
       pageSize: 2 // Change this value to adjust the number of jobs per page
-    };
+    }
   },
   computed: {
     visibleJobs() {
-      const startIndex = (this.currentPage - 1) * this.pageSize;
-      const endIndex = startIndex + this.pageSize;
-      return this.jobs.slice(startIndex, endIndex);
+      const startIndex = (this.currentPage - 1) * this.pageSize
+      const endIndex = startIndex + this.pageSize
+      return this.jobs.slice(startIndex, endIndex)
     },
     totalPages() {
-      return Math.ceil(this.jobs.length / this.pageSize);
+      return Math.ceil(this.jobs.length / this.pageSize)
     }
   },
   mounted() {
-    this.fetchJobs();
+    this.fetchJobs()
   },
   methods: {
     async fetchJobs() {
-      this.loading = true;
+      this.loading = true
       try {
-        const response = await fetch('http://localhost:8000/api/jobs');
-        const data = await response.json();
-        this.jobs = data;
+        const response = await fetch('http://localhost:8000/api/jobs')
+        const data = await response.json()
+        this.jobs = data
       } catch (error) {
-        console.error('Error fetching jobs:', error);
+        console.error('Error fetching jobs:', error)
       } finally {
-        this.loading = false;
+        this.loading = false
       }
     },
     prevPage() {
       if (this.currentPage > 1) {
-        this.currentPage--;
+        this.currentPage--
       }
     },
     nextPage() {
       if (this.currentPage < this.totalPages) {
-        this.currentPage++;
+        this.currentPage++
       }
     },
     gotoPage(pageNumber) {
-      this.currentPage = pageNumber;
+      this.currentPage = pageNumber
     }
   }
-};
+}
 </script>
 
 <style>
