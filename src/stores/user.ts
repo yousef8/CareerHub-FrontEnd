@@ -13,6 +13,10 @@ export const useUserStore = defineStore('user', () => {
   const isCandidate = computed(() => user.value?.role === 'candidate')
   const isEmployer = computed(() => user.value?.role === 'employer')
 
+  async function register(formData: FormData) {
+    await api.post<User>('/register', formData)
+  }
+
   async function login(credentials: LoginCredentials) {
     const res = await api.post<{ user: User; token: string }>('/login', credentials)
     setUser(res.data)
@@ -36,6 +40,7 @@ export const useUserStore = defineStore('user', () => {
     isAdmin,
     isCandidate,
     isEmployer,
-    login
+    login,
+    register
   }
 })
