@@ -22,12 +22,13 @@
     </div>
     <div class="actions">
       <a href="#" class="btn btn-primary">Apply Now</a>
-      <a href="#" class="btn btn-secondary"> 🔗 Copy Job link</a>
+      <a href="#" class="btn btn-secondary">Copy Job link</a>
     </div>
   </div>
 </template>
 
 <script lang="ts">
+import api from '@/utilities/axios'
 export default {
   data() {
     return {
@@ -46,7 +47,36 @@ export default {
       }
     }
   },
-  methods: {}
+  mounted() {
+    this.fetchJob()
+  },
+  methods: {
+    async fetchJob() {
+      this.loading = true
+      try {
+        const response = await api.get(`/jobs/${this.$route.params.id}`)
+        const data = response.data
+        this.job = data
+      } catch (error) {
+        console.error('Error fetching job:', error)
+      } finally {
+        this.loading = false
+      }
+    }
+
+    // async fetchJob() {
+    //   this.loading = true
+    //   try {
+    //     const response = await fetch(`${import.meta.env.VITE_API_URL}/jobs/2`)
+    //     const data = await response.json()
+    //     this.job = data
+    //   } catch (error) {
+    //     console.error('Error fetching job:', error)
+    //   } finally {
+    //     this.loading = false
+    //   }
+    // }
+  }
 }
 </script>
 
@@ -57,7 +87,7 @@ export default {
   margin: 70px auto;
   border: 1px solid #ddd;
   border-radius: 4px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Optional subtle shadow */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .heading {
