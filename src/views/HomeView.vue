@@ -1,5 +1,5 @@
 <template>
-  <main class="container h-100 d-flex align-items-center">
+  <main class="container h-100 d-flex align-items-center my-5">
     <div class="row align-items-center gap-5">
       <section class="col text-center title-section">
         <h1 class="text-primary">Welcome to CareerHub</h1>
