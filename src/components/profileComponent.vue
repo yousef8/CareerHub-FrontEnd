@@ -16,8 +16,8 @@
               <div v-else>
                 <input type="text" v-model="user[key]" class="form-control">
               </div>
-              <button v-if="!editing[key]" @click="startEditing(key)" class="btn btn-link"><i class="fas fa-pen fs-5 text-success"></i></button>
-              <button v-else @click="updateProfile(key)" class="btn btn-success">Save</button>
+              <button v-if="!editing[key]" @click="startEditing(key)" class="btn btn-link"><i class="fas fa-pen fs-5 text-primary"></i></button>
+              <button v-else @click="updateProfile(key)" class="btn btn-primary">Save</button>
             </div>
           </div>
           <div v-if="updateSuccess" class="alert alert-success mt-3" role="alert">

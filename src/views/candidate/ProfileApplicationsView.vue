@@ -15,8 +15,8 @@
 </template>
 
 <script>
-import profileComponent from './profileComponent.vue';
-import applicationComponent from './applicationComponent.vue';
+import profileComponent from '../../components/profileComponent.vue';
+import applicationComponent from '../../components/applicationComponent.vue';
 
 export default {
   data() {

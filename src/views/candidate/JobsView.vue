@@ -1,7 +1,7 @@
 <template>
   <div class="container mt-4">
     <h2 class="text-center mb-4 fw-bold bg-body-secondary py-2">All Jobs</h2>
-    <div v-if="loading" class="text-center fs-4 fw-bold text-success">Loading...</div>
+    <div v-if="loading" class="text-center fs-4 fw-bold text-primary">Loading...</div>
     <div v-else>
       <div v-if="jobs.length === 0" class="text-center">No jobs available</div>
       <div v-else>

@@ -7,7 +7,7 @@ import NotFoundView from '../views/NotFoundView.vue'
 
 import JobsView from '../views/candidate/JobsView.vue'
 import JobDetailsView from '../views/candidate/JobDetailsView.vue'
-import dynamicwrapper from '../views/candidate/dynamicwrapper.vue'
+import ProfileApplicationsView from '../views/candidate/ProfileApplicationsView.vue'
 
 import NewJobView from '../views/employer/NewJobView.vue'
 import EditJobView from '../views/employer/EditJobView.vue'
@@ -47,9 +47,9 @@ const router = createRouter({
     },
   
     {
-      path: '/dynamic',
-      name: 'dynamicComponent',
-      component: dynamicwrapper
+      path: '/my',
+      name: 'profile-applications',
+      component: ProfileApplicationsView
     },
     {
       path: '/jobs/new',

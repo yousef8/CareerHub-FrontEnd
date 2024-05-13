@@ -2,7 +2,7 @@
   <div class="card mb-3">
     <div class="card-body">
       <router-link :to="`/jobs/:id`" class="text-decoration-none text-dark">
-        <h3 class="card-title text-success">{{ job.title }}</h3>
+        <h3 class="card-title text-primary">{{ job.title }}</h3>
       </router-link>
       <h6 class="card-subtitle mb-2 text-muted">{{ job.company }}</h6>
       <p class="card-text">Location: {{ job.city }}, {{ job.country }}</p>
