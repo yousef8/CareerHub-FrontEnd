@@ -98,7 +98,9 @@
               <option value="hybrid">Hybrid</option>
             </select>
           </div>
-          <button class="btn" @click="handleSubmit">submit</button>
+          <div class="">
+            <button class="btn btn-primary" @click="handleSubmit">submit</button>
+          </div>
         </div>
       </form>
     </div>
@@ -199,7 +201,7 @@ export default {
   border-color: #8bd2f4;
 }
 
-.btn {
+/* .btn {
   margin: 30px;
   margin-left: 0;
   padding: 0.5rem 1rem;
@@ -209,7 +211,7 @@ export default {
   background-color: #1c4dff;
   color: #fff;
   background-image: linear-gradient(to bottom, #607ffa, #082aea);
-}
+} */
 
 .invalid-feedback {
   display: none;

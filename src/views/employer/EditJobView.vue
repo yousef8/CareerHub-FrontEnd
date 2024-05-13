@@ -157,7 +157,7 @@
               <option value="hybrid">Hybrid</option>
             </select>
           </div>
-          <button class="submit-b" @click="handleSubmit">Update</button>
+          <button class="btn btn-primary" @click="handleSubmit">Update</button>
         </div>
       </form>
     </div>
