@@ -35,13 +35,20 @@
         <button class="btn btn-outline-dark me-3 fw-bold text-white" type="submit">Search</button>
       </form>
       <div class="navbar-nav ms-auto fs-4 mt-2">
-        <a class="nav-item nav-link fs-4 me-4 p-2 rounded-5">
-          <router-link to="/login" class="text-decoration-none text-white">Login</router-link>
-        </a>
-        <a class="nav-item nav-link fs-4 me-4 p-2 rounded-5">
-          <router-link to="/register" class="text-decoration-none text-white">Register</router-link>
-        </a>
-        <li class="nav-item dropdown rounded-3">
+        <router-link
+          :to="{ name: 'login' }"
+          class="text-decoration-none nav-item nav-link fs-4 me-4 p-2 rounded-5 text-white"
+          v-if="!authStore.isLogged"
+          >Login</router-link
+        >
+        <router-link
+          :to="{ name: 'register' }"
+          class="text-decoration-none nav-item nav-link fs-4 me-4 p-2 rounded-5 text-white"
+          v-if="!authStore.isLogged"
+          >Register</router-link
+        >
+
+        <li class="nav-item dropdown rounded-3" v-if="authStore.isLogged">
           <a
             class="nav-link dropdown-toggle text-white"
             href="#"
@@ -50,7 +57,7 @@
             data-bs-toggle="dropdown"
             aria-expanded="false"
           >
-            Dropdown
+            {{ authStore.user.name }}
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
             <router-link
@@ -69,8 +76,10 @@
   </nav>
 </template>
 
-<script>
-export default {}
+<script setup lang="ts">
+import { useUserStore } from '@/stores/user'
+
+const authStore = useUserStore()
 </script>
 
 <style>
