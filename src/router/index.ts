@@ -103,7 +103,7 @@ router.beforeEach((to, from) => {
     return false
   }
 
-  if (to.meta.adminOnly && !userStore.isLogged && !userStore.isAdmin) {
+  if (to.meta.adminOnly && (!userStore.isLogged || !userStore.isAdmin)) {
     toast.error('Only Admins Allowed !!!')
     return false
   }
