@@ -22,20 +22,18 @@
       </form>
       <div class="navbar-nav ms-auto fs-4  mt-2">
         <a class="nav-item nav-link fs-4 me-4 p-2 rounded-5 ">
-          <router-link to="/" class="text-decoration-none text-white">Login</router-link>
+          <router-link to="/login" class="text-decoration-none text-white">Login</router-link>
         </a>
         <a class="nav-item nav-link fs-4 me-4 p-2 rounded-5 ">
-          <router-link to="/" class="text-decoration-none text-white">Register</router-link>
+          <router-link to="/register" class="text-decoration-none text-white">Register</router-link>
         </a>
         <li class="nav-item dropdown rounded-3">
           <a class=" nav-link dropdown-toggle text-white" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             Dropdown
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <router-link to="/my" class="text-decoration-none text-white"><li><a class="dropdown-item" href="#">Profile</a></li></router-link>
-            <li><a class="dropdown-item" href="#">Logout</a></li>
-            <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" href="#">Something else here</a></li>
+            <router-link to="/my" class="text-decoration-none text-white"><li><a class="dropdown-item fs-5" href="#">Profile</a></li></router-link>
+            <li><a class="dropdown-item fs-5" href="#">Logout</a></li>
           </ul>
         </li>
         <i class="fa-regular fa-circle-user fs-2 m-3"></i>
