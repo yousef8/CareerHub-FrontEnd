@@ -15,6 +15,8 @@ import OverviewView from '../views/employer/OverviewView.vue'
 
 import AdminView from '../views/admin/AdminView.vue'
 
+
+
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -43,6 +45,7 @@ const router = createRouter({
       name: 'job-details',
       component: JobDetailsView
     },
+  
     {
       path: '/my',
       name: 'profile-applications',
