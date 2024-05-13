@@ -57,7 +57,7 @@
             data-bs-toggle="dropdown"
             aria-expanded="false"
           >
-            {{ authStore.user.name }}
+            {{ authStore.user?.name }}
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
             <router-link
