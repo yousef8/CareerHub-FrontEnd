@@ -5,6 +5,7 @@ import 'vue3-toastify/dist/index.css'
 
 import HomeView from '../views/HomeView.vue'
 import LoginView from '../views/LoginView.vue'
+import LogoutView from '@/views/LogoutView.vue'
 import RegisterView from '../views/RegisterView.vue'
 import NotFoundView from '../views/NotFoundView.vue'
 
@@ -37,6 +38,11 @@ const router = createRouter({
       name: 'register',
       meta: { guestOnly: true },
       component: RegisterView
+    },
+    {
+      path: '/logout',
+      name: 'logout',
+      component: LogoutView
     },
     {
       path: '/jobs',
