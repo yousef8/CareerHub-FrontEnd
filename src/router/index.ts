@@ -3,21 +3,21 @@ import { useUserStore } from '@/stores/user'
 import { toast } from 'vue3-toastify'
 import 'vue3-toastify/dist/index.css'
 
-import HomeView from '../views/HomeView.vue'
-import LoginView from '../views/LoginView.vue'
+import HomeView from '@/views/HomeView.vue'
+import LoginView from '@/views/LoginView.vue'
 import LogoutView from '@/views/LogoutView.vue'
-import RegisterView from '../views/RegisterView.vue'
-import NotFoundView from '../views/NotFoundView.vue'
+import RegisterView from '@/views/RegisterView.vue'
+import NotFoundView from '@/views/NotFoundView.vue'
 
-import JobsView from '../views/candidate/JobsView.vue'
-import JobDetailsView from '../views/candidate/JobDetailsView.vue'
-import ProfileApplicationsView from '../views/candidate/ProfileApplicationsView.vue'
+import JobsView from '@/views/candidate/JobsView.vue'
+import JobDetailsView from '@/views/candidate/JobDetailsView.vue'
+import ProfileApplicationsView from '@/views/candidate/ProfileApplicationsView.vue'
 
-import NewJobView from '../views/employer/NewJobView.vue'
-import EditJobView from '../views/employer/EditJobView.vue'
-import OverviewView from '../views/employer/OverviewView.vue'
+import NewJobView from '@/views/employer/NewJobView.vue'
+import EditJobView from '@/views/employer/EditJobView.vue'
+import OverviewView from '@/views/employer/OverviewView.vue'
 
-import AdminView from '../views/admin/AdminView.vue'
+import AdminView from '@/views/admin/AdminView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),

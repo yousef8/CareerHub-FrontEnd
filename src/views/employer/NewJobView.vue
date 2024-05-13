@@ -1,20 +1,14 @@
 <template>
-    <h1>New Job works!</h1>
+  <h1>New Job works!</h1>
 </template>
 
-<script>
+<script lang="ts">
 export default {
-    data() {
-        return {
-            
-        };
-    },
-    methods: {
-        
-    }
-};
+  data() {
+    return {}
+  },
+  methods: {}
+}
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>
