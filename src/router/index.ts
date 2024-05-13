@@ -1,4 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
+import { useUserStore } from '@/stores/user'
+import { toast } from 'vue3-toastify'
+import 'vue3-toastify/dist/index.css'
 
 import HomeView from '../views/HomeView.vue'
 import LoginView from '../views/LoginView.vue'
@@ -15,8 +18,6 @@ import OverviewView from '../views/employer/OverviewView.vue'
 
 import AdminView from '../views/admin/AdminView.vue'
 
-
-
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -28,11 +29,13 @@ const router = createRouter({
     {
       path: '/login',
       name: 'login',
+      meta: { guestOnly: true },
       component: LoginView
     },
     {
       path: '/register',
       name: 'register',
+      meta: { guestOnly: true },
       component: RegisterView
     },
     {
@@ -45,10 +48,11 @@ const router = createRouter({
       name: 'job-details',
       component: JobDetailsView
     },
-  
+
     {
       path: '/my',
       name: 'profile-applications',
+      meta: { authOnly: true },
       component: ProfileApplicationsView
     },
     {
@@ -69,6 +73,7 @@ const router = createRouter({
     {
       path: '/admin',
       name: 'admin',
+      meta: { adminOnly: true },
       component: AdminView
     },
     {
@@ -76,6 +81,26 @@ const router = createRouter({
       component: NotFoundView
     }
   ]
+})
+
+router.beforeEach((to, from) => {
+  const userStore = useUserStore()
+  console.log(from)
+
+  if (to.meta.guestOnly && userStore.isLogged) {
+    toast.error('You are already logged in !!!')
+    return false
+  }
+
+  if (to.meta.authOnly && !userStore.isLogged) {
+    toast.error('You must be login first !!!')
+    return false
+  }
+
+  if (to.meta.adminOnly && !userStore.isLogged && !userStore.isAdmin) {
+    toast.error('Only Admins Allowed !!!')
+    return false
+  }
 })
 
 export default router
