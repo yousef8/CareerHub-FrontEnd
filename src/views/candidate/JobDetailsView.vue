@@ -22,7 +22,7 @@
     </div>
     <div class="actions">
       <a href="#" class="btn btn-primary">Apply Now</a>
-      <a href="#" class="btn btn-secondary">Share Job</a>
+      <a href="#" class="btn btn-secondary"> 🔗 Copy Job link</a>
     </div>
   </div>
 </template>
