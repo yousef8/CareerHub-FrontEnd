@@ -47,7 +47,7 @@
           </div>
         </div>
         <div class="mb-3 w-75 d-flex flex-wrap justify-content-between">
-          <div style="width: 400px">
+          <div style="width: 450px">
             <label for="city" class="form-label">City</label>
             <button class="edit-b" @click.prevent="toggleEdit('city')">Edit</button>
             <input
@@ -60,7 +60,7 @@
             />
             <div v-if="!job.city && submitted" class="invalid-feedback">City is required.</div>
           </div>
-          <div style="width: 400px">
+          <div style="width: 450px">
             <label for="country" class="form-label">Country</label>
             <button class="edit-b" @click.prevent="toggleEdit('country')">Edit</button>
             <input
@@ -77,7 +77,7 @@
           </div>
         </div>
         <div class="mb-3 w-75 d-flex flex-wrap justify-content-between">
-          <div style="width: 400px">
+          <div style="width: 450px">
             <label for="minExpYears" class="form-label">Minimum Experience (Years)</label>
             <button class="edit-b" @click.prevent="toggleEdit('min_exp_years')">Edit</button>
             <input
@@ -89,7 +89,7 @@
               :disabled="!this.activeFields.min_exp_years"
             />
           </div>
-          <div style="width: 400px">
+          <div style="width: 450px">
             <label for="maxExpYears" class="form-label">Maximum Experience (Years)</label>
             <button class="edit-b" @click.prevent="toggleEdit('max_exp_years')">Edit</button>
             <input
@@ -103,7 +103,7 @@
           </div>
         </div>
         <div class="mb-3 w-75 d-flex flex-wrap justify-content-between">
-          <div style="width: 400px">
+          <div style="width: 450px">
             <label for="minSalary" class="form-label">Minimum Salary (Optional)</label>
             <button class="edit-b" @click.prevent="toggleEdit('min_salary')">Edit</button>
             <input
@@ -114,7 +114,7 @@
               :disabled="!this.activeFields.min_salary"
             />
           </div>
-          <div style="width: 400px">
+          <div style="width: 450px">
             <label for="maxSalary" class="form-label">Maximum Salary (Optional)</label>
             <button class="edit-b" @click.prevent="toggleEdit('max_salary')">Edit</button>
             <input
@@ -127,7 +127,7 @@
           </div>
         </div>
         <div class="mb-3 w-75 d-flex flex-wrap justify-content-between">
-          <div style="width: 400px">
+          <div style="width: 450px">
             <label for="type" class="form-label">Job Type</label>
             <button class="edit-b" @click.prevent="toggleEdit('type')">Edit</button>
             <select
@@ -142,7 +142,7 @@
               <option value="contract">Contract</option>
             </select>
           </div>
-          <div style="width: 400px">
+          <div style="width: 450px">
             <label for="remoteType" class="form-label">Remote Type</label>
             <button class="edit-b" href="" @click.prevent="toggleEdit('remote_type')">Edit</button>
             <select
@@ -157,7 +157,9 @@
               <option value="hybrid">Hybrid</option>
             </select>
           </div>
-          <button class="btn btn-primary" @click="handleSubmit">Update</button>
+          <div class="my-5">
+            <button class="btn btn-primary" @click="handleSubmit">Update</button>
+          </div>
         </div>
       </form>
     </div>

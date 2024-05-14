@@ -36,12 +36,12 @@
           </div>
         </div>
         <div class="mb-3 w-75 d-flex flex-wrap justify-content-between">
-          <div style="width: 400px">
+          <div style="width: 450px">
             <label for="city" class="form-label">City</label>
             <input v-model="job.city" type="text" id="city" class="form-control" required />
             <div v-if="!job.city && submitted" class="invalid-feedback">City is required.</div>
           </div>
-          <div style="width: 400px">
+          <div style="width: 450px">
             <label for="country" class="form-label">Country</label>
             <input v-model="job.country" type="text" id="country" class="form-control" required />
             <div v-if="!job.country && submitted" class="invalid-feedback">
@@ -50,7 +50,7 @@
           </div>
         </div>
         <div class="mb-3 w-75 d-flex flex-wrap justify-content-between">
-          <div style="width: 400px">
+          <div style="width: 450px">
             <label for="minExpYears" class="form-label">Minimum Experience (Years)</label>
             <input
               v-model="job.min_exp_years"
@@ -60,7 +60,7 @@
               required
             />
           </div>
-          <div style="width: 400px">
+          <div style="width: 450px">
             <label for="maxExpYears" class="form-label">Maximum Experience (Years)</label>
             <input
               v-model="job.max_exp_years"
@@ -72,17 +72,17 @@
           </div>
         </div>
         <div class="mb-3 w-75 d-flex flex-wrap justify-content-between">
-          <div style="width: 400px">
+          <div style="width: 450px">
             <label for="minSalary" class="form-label">Minimum Salary (Optional)</label>
             <input v-model="job.min_salary" type="number" id="minSalary" class="form-control" />
           </div>
-          <div style="width: 400px">
+          <div style="width: 450px">
             <label for="maxSalary" class="form-label">Maximum Salary (Optional)</label>
             <input v-model="job.max_salary" type="number" id="maxSalary" class="form-control" />
           </div>
         </div>
         <div class="mb-3 w-75 d-flex flex-wrap justify-content-between">
-          <div style="width: 400px">
+          <div style="width: 450px">
             <label for="type" class="form-label">Job Type</label>
             <select v-model="job.type" id="type" class="form-control" required>
               <option value="full-time">Full Time</option>
@@ -90,7 +90,7 @@
               <option value="contract">Contract</option>
             </select>
           </div>
-          <div style="width: 400px">
+          <div style="width: 450px">
             <label for="remoteType" class="form-label">Remote Type</label>
             <select v-model="job.remote_type" id="remoteType" class="form-control" required>
               <option value="on-site">On-Site</option>
@@ -98,7 +98,7 @@
               <option value="hybrid">Hybrid</option>
             </select>
           </div>
-          <div class="">
+          <div class="my-5">
             <button class="btn btn-primary" @click="handleSubmit">submit</button>
           </div>
         </div>
