@@ -5,8 +5,8 @@
       style="font-family: 'Dancing Script', cursive"
       href="#"
     >
-      <router-link to="/" class="text-decoration-none text-white">CareerHub</router-link>
-    </a>
+      <router-link to="/" class="text-decoration-none text-white">CareerHub</router-link></a
+    >
     <button
       class="navbar-toggler"
       type="button"
@@ -68,12 +68,18 @@
             >
           </ul>
         </li>
+        <div
+          class="profile-image-container"
+          v-if="authStore.isLogged && authStore.user?.profile_image"
+        >
+          <img :src="authStore.user?.profile_image" class="rounded-circle" width="32" height="32" />
+        </div>
+
         <i class="fa-regular fa-circle-user fs-2 m-3"></i>
       </div>
     </div>
   </nav>
 </template>
-
 <script setup lang="ts">
 import { useUserStore } from '@/stores/user'
 
@@ -83,5 +89,10 @@ const authStore = useUserStore()
 <style>
 .nav-item:hover {
   background-color: black;
+}
+.profile-image-container {
+  display: flex;
+  align-items: center;
+  margin-left: 10px; /* Adjust this margin as needed */
 }
 </style>
