@@ -1,6 +1,6 @@
 <template>
   <div v-if="loading" class="text-center fs-4 fw-bold text-primary">Loading...</div>
-  <div v-else-if="error" class="text-center fs-4 fw-bold text-danger">This job doesn't exist</div>
+  <div v-else-if="error" class="text-center fs-4 fw-bold text-danger">Error loading job 😢</div>
   <div v-else class="job-details-container">
     <h1 class="heading">{{ job.title }}</h1>
     <div class="job-info">
