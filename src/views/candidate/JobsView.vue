@@ -32,7 +32,7 @@ export default {
       jobs: [],
       loading: false,
       currentPage: 1,
-      pageSize: 2 // Change this value to adjust the number of jobs per page
+      pageSize: 4
     };
   },
   computed: {

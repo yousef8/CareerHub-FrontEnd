@@ -1,14 +1,13 @@
 <template>
   <nav class="navbar navbar-expand-lg px-2 m-0 " style=" background-color: #2784FC;">
-    <a class="navbar-brand fs-1 ms-2 me-lg-5 fw-bold text-white" style="font-family: 'Dancing Script', cursive;" href="#">CareerHub</a>
+    <a class="navbar-brand fs-1 ms-2 me-lg-5 fw-bold text-white" style="font-family: 'Dancing Script', cursive;" href="#"> 
+    <router-link to="/" class="text-decoration-none text-white">CareerHub</router-link>
+    </a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <div class="navbar-nav me-auto  ">
-        <a class="nav-item nav-link fs-4 me-lg-4 rounded-5">
-          <router-link to="/" class="text-decoration-none text-white">Home</router-link>
-        </a>
         <a class="nav-item nav-link fs-4 me-lg-4 rounded-5">
           <router-link to="/jobs" class="text-decoration-none text-white">Jobs</router-link>
         </a>
