@@ -1,5 +1,7 @@
 <template>
-  <div class="job-details-container">
+  <div v-if="loading" class="text-center fs-4 fw-bold text-primary">Loading...</div>
+  <div v-else-if="error" class="text-center fs-4 fw-bold text-danger">This job doesn't exist</div>
+  <div v-else class="job-details-container">
     <h1 class="heading">{{ job.title }}</h1>
     <div class="job-info">
       <p class="location">
@@ -33,18 +35,18 @@ export default {
   data() {
     return {
       job: {
-        title: 'Software Engineer',
-        city: 'San Francisco',
-        country: 'USA',
-        min_exp_years: 2,
-        max_exp_years: 5,
-        type: 'Full-time',
-        remote_type: 'Remote',
-        description: `<p>Our company is looking for a software engineer to join our team. You will be working on
-            developing new features for our web application.</p>`,
-        requirements: `Bachelor's degree in Computer Science or related field\nExperience with JavaScript and
-            Node.js\nExperience with React.js or Angular`
-      }
+        title: '',
+        city: '',
+        country: '',
+        min_exp_years: 0,
+        max_exp_years: 0,
+        type: '',
+        remote_type: '',
+        description: ``,
+        requirements: ``
+      },
+      loading: false,
+      error: false
     }
   },
   mounted() {
@@ -57,10 +59,11 @@ export default {
         const response = await api.get(`/jobs/${this.$route.params.id}`)
         const data = response.data
         this.job = data
-      } catch (error) {
-        console.error('Error fetching job:', error)
-      } finally {
         this.loading = false
+      } catch (error) {
+        this.error = true
+        this.loading = false
+        console.error('Error fetching job:', error)
       }
     }
 
