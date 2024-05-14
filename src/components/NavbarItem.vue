@@ -4,8 +4,9 @@
       class="navbar-brand fs-1 ms-2 me-lg-5 fw-bold text-white"
       style="font-family: 'Dancing Script', cursive"
       href="#"
-      >CareerHub</a
     >
+      <router-link to="/" class="text-decoration-none text-white">CareerHub</router-link>
+    </a>
     <button
       class="navbar-toggler"
       type="button"
@@ -19,9 +20,6 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <div class="navbar-nav me-auto">
-        <a class="nav-item nav-link fs-4 me-lg-4 rounded-5">
-          <router-link to="/" class="text-decoration-none text-white">Home</router-link>
-        </a>
         <a class="nav-item nav-link fs-4 me-lg-4 rounded-5">
           <router-link to="/jobs" class="text-decoration-none text-white">Jobs</router-link>
         </a>
