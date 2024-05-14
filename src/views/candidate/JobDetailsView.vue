@@ -66,19 +66,6 @@ export default {
         console.error('Error fetching job:', error)
       }
     }
-
-    // async fetchJob() {
-    //   this.loading = true
-    //   try {
-    //     const response = await fetch(`${import.meta.env.VITE_API_URL}/jobs/2`)
-    //     const data = await response.json()
-    //     this.job = data
-    //   } catch (error) {
-    //     console.error('Error fetching job:', error)
-    //   } finally {
-    //     this.loading = false
-    //   }
-    // }
   }
 }
 </script>
