@@ -1,6 +1,6 @@
 <template>
   <div v-if="loading" class="text-center fs-4 fw-bold text-primary">Loading...</div>
-  <div v-else-if="error" class="text-center fs-4 fw-bold text-danger">Error loading job 😢</div>
+  <div v-else-if="error" class="text-center fs-4 fw-bold text-danger">Error loading job</div>
   <div v-else class="job-details-container">
     <h1 class="heading">{{ job.title }}</h1>
     <div class="job-info">
@@ -22,7 +22,7 @@
         </li>
       </ul>
     </div>
-    <div class="actions">
+    <div class="actions mt-5">
       <a href="#" class="btn btn-primary">Apply Now</a>
       <a href="#" class="btn btn-secondary">Copy Job link</a>
     </div>
@@ -127,20 +127,5 @@ export default {
 
 .actions a {
   margin-left: 10px;
-}
-
-.btn {
-  padding: 10px 20px;
-  border-radius: 4px;
-}
-
-.btn-primary {
-  background-color: #428bca;
-  color: #fff;
-}
-
-.btn-secondary {
-  background-color: #ddd;
-  border: 1px solid #ccc;
 }
 </style>
