@@ -23,13 +23,10 @@
         <a class="nav-item nav-link fs-4 me-lg-4 rounded-5">
           <router-link to="/jobs" class="text-decoration-none text-white">Jobs</router-link>
         </a>
-        <a class="nav-item nav-link fs-4 me-lg-4 rounded-5">
-          <router-link to="/" class="text-decoration-none text-white">Employers</router-link>
-        </a>
       </div>
       <form class="d-flex mx-auto mx-lg-0 w-100 w-lg-auto mt-2">
         <!-- Centered search bar -->
-        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
+        <input class="form-control me-2 w-100" type="search" placeholder="Search" aria-label="Search" />
         <button class="btn btn-outline-dark me-3 fw-bold text-white" type="submit">Search</button>
       </form>
       <div class="navbar-nav ms-auto fs-4 mt-2">
@@ -65,6 +62,7 @@
                 <li><a class="dropdown-item fs-5" href="#">Profile</a></li>
             </router-link>
             <router-link :to="{ name: 'logout' }" class="text-decoration-none text-white"><li><a class="dropdown-item fs-5">Logout</a></li></router-link>
+            <router-link v-if="authStore.user?.role === 'employer'" :to="{ name: 'employer-overview' }" class="text-decoration-none text-white"><li><a class="dropdown-item fs-5">Overview</a></li></router-link>
           </ul>
         </li>
     <div class="profile-image-container" v-if="authStore.isLogged && authStore.user?.profile_image">
