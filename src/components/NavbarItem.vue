@@ -64,8 +64,7 @@
               >
                 <li><a class="dropdown-item fs-5" href="#">Profile</a></li>
             </router-link>
-            <router-link to="/" class="text-decoration-none text-white"
-            <router-link :to="{ name: 'logout' }" class="text-decoration-none text-white"><li><a class="dropdown-item fs-5">Logout</a></li></router-link>
+            <router-link> :to="{ name: 'logout' }" class="text-decoration-none text-white"><li><a class="dropdown-item fs-5">Logout</a></li></router-link>
           </ul>
         </li>
     <div class="profile-image-container" v-if="authStore.isLogged && authStore.user?.profile_image">
