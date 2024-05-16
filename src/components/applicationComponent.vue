@@ -1,6 +1,6 @@
 <template>
   <div class="mb-5 border border-3 p-4 border-secondary rounded">
-    <h2 class="text-center">Applications</h2>
+    <h2 class="text-center mb-4">Your Applications</h2>
     <div v-if="applications.length === 0" class="text-center">No applications found.</div>
     <div v-else>
       <div v-for="(application, index) in applications" :key="index" class="card mb-3" :style="{ backgroundColor: getStatusColor(application.status) }">
