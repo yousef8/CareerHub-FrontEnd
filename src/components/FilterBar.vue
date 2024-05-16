@@ -1,9 +1,6 @@
 <template>
   <div style="box-shadow: 0 4px 5px rgba(0, 0, 0, 0.2)">
-    <div
-      class="d-flex justify-content-center mx-auto gap-2 py-2"
-      style="width: 90%; height: fit-content"
-    >
+    <div class="d-flex justify-content-center mx-auto gap-2 py-2" style="height: fit-content">
       <select
         v-model="filter.city"
         name="city"
@@ -102,6 +99,37 @@
         <option value="python">Python</option>
         <option value="java">Java</option>
       </select>
+
+      <select
+        v-model="filter.type"
+        name="type"
+        id="type"
+        :class="{
+          'active-drop-down': filter.type !== '',
+          dropdown: filter.type === ''
+        }"
+      >
+        <option value="">type</option>
+        <option value="full-time">Full-time</option>
+        <option value="part-time">Part-time</option>
+        <option value="contract">Contract</option>
+      </select>
+
+      <select
+        v-model="filter.remote_type"
+        name="remote_type"
+        id="remote_type"
+        :class="{
+          'active-drop-down': filter.remote_type !== '',
+          dropdown: filter.remote_type === ''
+        }"
+      >
+        <option value="">Remote</option>
+        <option value="remote">Remote</option>
+        <option value="hybrid">Hybrid</option>
+        <option value="on-site">On-site</option>
+      </select>
+
       <select
         v-model="filter.industries"
         name="industries"
@@ -111,7 +139,7 @@
           dropdown: filter.industries === ''
         }"
       >
-        <option value="">industries</option>
+        <option value="">industry</option>
         <option value="software engineering">Software Engineering</option>
         <option value="data science">Data Science</option>
         <option value="web development">Web Development</option>
@@ -136,7 +164,9 @@ export default {
         max_salary: '',
         posted_after: '',
         skills: '',
-        industries: ''
+        industries: '',
+        type: '',
+        remote_type: ''
       }
     }
   },
@@ -150,6 +180,8 @@ export default {
       this.filter.posted_after = ''
       this.filter.skills = ''
       this.filter.industries = ''
+      this.filter.type = ''
+      this.filter.remote_type = ''
     },
     applyFilter() {
       console.log('Filter applied', this.filter)
