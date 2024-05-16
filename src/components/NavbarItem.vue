@@ -5,8 +5,8 @@
       style="font-family: 'Dancing Script', cursive"
       href="#"
     >
-      <router-link to="/" class="text-decoration-none text-white">CareerHub</router-link></a
-    >
+      <router-link to="/" class="text-decoration-none text-white">CareerHub</router-link>
+    </a>
     <button
       class="navbar-toggler"
       type="button"
@@ -61,20 +61,22 @@
             <router-link
               :to="{ name: 'profile-applications' }"
               class="text-decoration-none text-white"
-              ><li><a class="dropdown-item fs-5" href="#">Profile</a></li></router-link
-            >
-            <router-link :to="{ name: 'logout' }" class="text-decoration-none text-white"
-              ><li><a class="dropdown-item fs-5">Logout</a></li></router-link
-            >
+              >
+                <li><a class="dropdown-item fs-5" href="#">Profile</a></li>
+            </router-link>
+            <router-link to="/" class="text-decoration-none text-white"
+            <router-link :to="{ name: 'logout' }" class="text-decoration-none text-white"><li><a class="dropdown-item fs-5">Logout</a></li></router-link>
           </ul>
         </li>
+    <div class="profile-image-container" v-if="authStore.isLogged && authStore.user?.profile_image">
+        <img :src="authStore.user?.profile_image" class="rounded-circle" width="32" height="32" >
+    </div>
         <div
           class="profile-image-container"
           v-if="authStore.isLogged && authStore.user?.profile_image"
         >
           <img :src="authStore.user?.profile_image" class="rounded-circle" width="32" height="32" />
         </div>
-
         <i class="fa-regular fa-circle-user fs-2 m-3"></i>
       </div>
     </div>

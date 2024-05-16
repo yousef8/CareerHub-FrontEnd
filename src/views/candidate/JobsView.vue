@@ -38,7 +38,7 @@ export default {
       loading: false,
       currentPage: 1,
       pageSize: 4
-    }
+    };
   },
   computed: {
     visibleJobs() {
