@@ -22,6 +22,13 @@ export const useUserStore = defineStore('user', () => {
     setUser(res.data)
   }
 
+  function logout() {
+    user.value = null
+    token.value = null
+    localStorage.removeItem('user')
+    localStorage.removeItem('token')
+  }
+
   function setUser(data: { token: string; user: User }) {
     user.value = data.user
     token.value = data.token
@@ -41,6 +48,7 @@ export const useUserStore = defineStore('user', () => {
     isCandidate,
     isEmployer,
     login,
-    register
+    register,
+    logout
   }
 })

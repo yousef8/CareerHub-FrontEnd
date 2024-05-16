@@ -28,7 +28,7 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { onMounted, ref } from 'vue'
 import { useUserStore } from '@/stores/user'
 import { useRoute, useRouter } from 'vue-router'
@@ -65,9 +65,10 @@ onMounted(() => {
 
 <style scoped>
 .login-container {
-  height: 100%;
+  height: 100vh;
   background-color: #ebebeb !important;
-  background: radial-gradient(circle at 0px 0px, rgb(18, 70, 149), rgb(0, 112, 235)) 0px 0px / 100% 460px no-repeat;
+  background: radial-gradient(circle at 0px 0px, rgb(18, 70, 149), rgb(0, 112, 235)) 0px 0px / 100%
+    460px no-repeat;
 }
 
 .login-form {

@@ -4,9 +4,9 @@
       class="navbar-brand fs-1 ms-2 me-lg-5 fw-bold text-white"
       style="font-family: 'Dancing Script', cursive"
       href="#"
-      >
-       <router-link to="/" class="text-decoration-none text-white">CareerHub</router-link></a
     >
+      <router-link to="/" class="text-decoration-none text-white">CareerHub</router-link>
+    </a>
     <button
       class="navbar-toggler"
       type="button"
@@ -20,7 +20,6 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <div class="navbar-nav me-auto">
-       
         <a class="nav-item nav-link fs-4 me-lg-4 rounded-5">
           <router-link to="/jobs" class="text-decoration-none text-white">Jobs</router-link>
         </a>
@@ -56,26 +55,28 @@
             data-bs-toggle="dropdown"
             aria-expanded="false"
           >
-             
             {{ authStore.user?.name }}
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
             <router-link
               :to="{ name: 'profile-applications' }"
               class="text-decoration-none text-white"
-              ><li><a class="dropdown-item fs-5" href="#">Profile</a></li></router-link
-            >
+              >
+                <li><a class="dropdown-item fs-5" href="#">Profile</a></li>
+            </router-link>
             <router-link to="/" class="text-decoration-none text-white"
-              ><li><a class="dropdown-item fs-5">Logout</a></li></router-link
-            >
+            <router-link :to="{ name: 'logout' }" class="text-decoration-none text-white"><li><a class="dropdown-item fs-5">Logout</a></li></router-link>
           </ul>
         </li>
     <div class="profile-image-container" v-if="authStore.isLogged && authStore.user?.profile_image">
-        
-       
         <img :src="authStore.user?.profile_image" class="rounded-circle" width="32" height="32" >
-      </div>
-        
+    </div>
+        <div
+          class="profile-image-container"
+          v-if="authStore.isLogged && authStore.user?.profile_image"
+        >
+          <img :src="authStore.user?.profile_image" class="rounded-circle" width="32" height="32" />
+        </div>
         <i class="fa-regular fa-circle-user fs-2 m-3"></i>
       </div>
     </div>

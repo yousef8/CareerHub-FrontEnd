@@ -1,7 +1,7 @@
 <template>
   <div class="card mb-3">
     <div class="card-body">
-      <router-link :to="`/jobs/:id`" class="text-decoration-none text-dark">
+      <router-link :to="`/jobs/${job.id}`" class="text-decoration-none text-dark">
         <h3 class="card-title text-primary">{{ job.title }}</h3>
       </router-link>
       <h6 class="card-subtitle mb-2 text-muted">{{ job.company }}</h6>
@@ -22,7 +22,7 @@ export default {
   props: {
     job: Object
   }
-};
+}
 </script>
 
 <style scoped>
