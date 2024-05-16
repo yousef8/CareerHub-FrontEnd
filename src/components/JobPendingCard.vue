@@ -2,7 +2,6 @@
     <div v-if="loading" class="text-center fs-4 fw-bold text-primary">Loading...</div>
     <div v-else-if="error" class="text-center fs-4 fw-bold text-danger">Error loading job</div>
     <div v-else>
-      <!-- Loop over jobs -->
       <div v-for="(job, index) in jobs" :key="index" class="job-details-container">
         <h1 class="heading">{{ job.title }}</h1>
         <div class="job-info">
@@ -19,7 +18,6 @@
         <div class="requirements">
           <h2>Job Requirements</h2>
           <ul>
-            <!-- Split requirements by new line and loop over them -->
             <li v-for="requirement in job.requirements.split('\n')" :key="requirement">
               {{ requirement.trim() }}
             </li>
@@ -30,7 +28,6 @@
             <button class="btn btn-danger"><i class="fas fa-times"></i> Reject</button>
         </div>
       </div>
-      <!-- End loop -->
     </div>
   </template>
   
