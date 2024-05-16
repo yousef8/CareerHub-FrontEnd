@@ -18,6 +18,8 @@ import EditJobView from '@/views/employer/EditJobView.vue'
 import OverviewView from '@/views/employer/OverviewView.vue'
 
 import AdminView from '@/views/admin/AdminView.vue'
+import AdminAnalyticsView from '@/views/admin/AdminAnalyticsView.vue'
+
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -80,6 +82,11 @@ const router = createRouter({
       name: 'admin',
       // meta: { adminOnly: true },
       component: AdminView
+    },{
+      path: '/adminAnalytics',
+      name: 'adminAnalytics',
+      // meta: { adminOnly: true },
+      component: AdminAnalyticsView
     },
     {
       path: '/:pathMatch(.*)*',
