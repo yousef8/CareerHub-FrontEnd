@@ -124,7 +124,7 @@
           dropdown: filter.remote_type === ''
         }"
       >
-        <option value="">Remote</option>
+        <option value="">Remote type</option>
         <option value="remote">Remote</option>
         <option value="hybrid">Hybrid</option>
         <option value="on-site">On-site</option>
@@ -144,7 +144,6 @@
         <option value="data science">Data Science</option>
         <option value="web development">Web Development</option>
       </select>
-
       <button @click="applyFilter" class="btn btn-primary">Apply filters</button>
       <button @click="reset" class="btn reset-btn">Reset</button>
     </div>
