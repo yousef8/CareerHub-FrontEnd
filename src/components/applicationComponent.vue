@@ -33,7 +33,7 @@ export default {
       const accessToken = localStorage.getItem('token');
 
       if (accessToken) {
-        axios.get('http://localhost:8000/api/applications/', {
+        axios.get(`${import.meta.env.VITE_API_URL}/applications/`, {
           headers: {
             Authorization: `Bearer ${accessToken}`
           }
@@ -63,7 +63,7 @@ export default {
       const accessToken = localStorage.getItem('token');
 
       if (accessToken) {
-        axios.delete(`http://localhost:8000/api/applications/${applicationId}`, {
+        axios.delete(`${import.meta.env.VITE_API_URL}/applications/${applicationId}`, {
           headers: {
             Authorization: `Bearer ${accessToken}`
           }
