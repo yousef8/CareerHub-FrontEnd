@@ -156,7 +156,7 @@ async function handleSubmit() {
     router.push({ name: 'login', query: { registered: 'true' } })
   } catch (error) {
     if (error.response) {
-      toast.error(`Error : error.response.data.message`)
+      toast.error(`Error : ${error.response.data.message}`)
       Object.values(error.response.data.errors).forEach((errorList) => {
         errorList.forEach((error) => {
           toast.error(error)

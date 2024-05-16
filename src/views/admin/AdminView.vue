@@ -1,13 +1,24 @@
 <template>
-  <h1>Admin panel works!</h1>
+  <div class="container border rounded">
+    <JobPendingCard v-for="index in 4" :key="index" :index="index" />
+  </div>
 </template>
 
-<script lang="ts">
+<script>
+import JobPendingCard from '@/components/JobPendingCard.vue'
+
 export default {
-  data() {
-    return {}
+  components: {
+    JobPendingCard,
   },
-  methods: {}
+  data() {
+    return {
+
+    }
+  },
+  methods: {
+
+  }
 }
 </script>
 
