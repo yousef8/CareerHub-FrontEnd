@@ -54,7 +54,6 @@ const router = createRouter({
       name: 'job-details',
       component: JobDetailsView
     },
-
     {
       path: '/my',
       name: 'profile-applications',
@@ -79,7 +78,7 @@ const router = createRouter({
     {
       path: '/admin',
       name: 'admin',
-      meta: { adminOnly: true },
+      // meta: { adminOnly: true },
       component: AdminView
     },
     {
