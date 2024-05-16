@@ -8,29 +8,16 @@
           <input v-model="job.title" type="text" id="title" class="form-control" required />
           <div v-if="!job.title && submitted" class="invalid-feedback">Job Title is required.</div>
         </div>
-
         <div class="mb-3 w-75">
           <label for="description" class="form-label">Job Description</label>
-          <textarea
-            v-model="job.description"
-            id="description"
-            rows="5"
-            class="form-control"
-            required
-          ></textarea>
+          <textarea v-model="job.description" id="description" rows="5" class="form-control" required></textarea>
           <div v-if="!job.description && submitted" class="invalid-feedback">
             Job description is required.
           </div>
         </div>
         <div class="mb-3 w-75">
           <label for="requirements" class="form-label">Job Requirements</label>
-          <textarea
-            v-model="job.requirements"
-            id="requirements"
-            rows="5"
-            class="form-control"
-            required
-          ></textarea>
+          <textarea v-model="job.requirements" id="requirements" rows="5" class="form-control" required></textarea>
           <div v-if="!job.requirements && submitted" class="invalid-feedback">
             Job requirmenets are required.
           </div>
@@ -52,23 +39,11 @@
         <div class="mb-3 w-75 d-flex flex-wrap justify-content-between">
           <div style="width: 450px">
             <label for="minExpYears" class="form-label">Minimum Experience (Years)</label>
-            <input
-              v-model="job.min_exp_years"
-              type="number"
-              id="minExpYears"
-              class="form-control"
-              required
-            />
+            <input v-model="job.min_exp_years" type="number" id="minExpYears" class="form-control" required />
           </div>
           <div style="width: 450px">
             <label for="maxExpYears" class="form-label">Maximum Experience (Years)</label>
-            <input
-              v-model="job.max_exp_years"
-              type="number"
-              id="maxExpYears"
-              class="form-control"
-              required
-            />
+            <input v-model="job.max_exp_years" type="number" id="maxExpYears" class="form-control" required />
           </div>
         </div>
         <div class="mb-3 w-75 d-flex flex-wrap justify-content-between">
@@ -98,8 +73,8 @@
               <option value="hybrid">Hybrid</option>
             </select>
           </div>
-          <div class="my-5">
-            <button class="btn btn-primary" @click="handleSubmit">submit</button>
+          <div class="my-5" style="width: 450px">
+            <button class="btn btn-primary px-5" @click="handleSubmit">Post Job</button>
           </div>
         </div>
       </form>
@@ -133,8 +108,6 @@ export default {
       event.preventDefault()
       this.submitted = true
 
-      // Will Send the job data to the server here
-
       const hasEmptyFields = this.requiredFields.some((field) => !this.job[field])
       if (hasEmptyFields) {
         console.error('Please fill in all required fields.')
@@ -164,13 +137,9 @@ export default {
 
 <style scoped>
 .job-posting-container {
-  margin: 2rem auto;
-  padding: 1rem;
-  border: 1px solid #ddd;
-  border-radius: 4px;
+  padding: 5rem;
   background-color: #ebebeb !important;
-  background: radial-gradient(circle at 0px 0px, rgb(18, 70, 149), rgb(0, 112, 235)) 0px 0px / 100%
-    460px no-repeat;
+  background: radial-gradient(circle at 0px 0px, rgb(18, 70, 149), rgb(0, 112, 235)) 0px 0px / 100% 460px no-repeat;
 }
 
 .job-posting-form {
@@ -201,18 +170,6 @@ export default {
   border-color: #8bd2f4;
 }
 
-/* .btn {
-  margin: 30px;
-  margin-left: 0;
-  padding: 0.5rem 1rem;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  background-color: #1c4dff;
-  color: #fff;
-  background-image: linear-gradient(to bottom, #607ffa, #082aea);
-} */
-
 .invalid-feedback {
   display: none;
   color: #dc3545;
@@ -220,8 +177,7 @@ export default {
   margin-top: 0.25rem;
 }
 
-.form-control:invalid + .invalid-feedback {
+.form-control:invalid+.invalid-feedback {
   display: block;
 }
 </style>
-
