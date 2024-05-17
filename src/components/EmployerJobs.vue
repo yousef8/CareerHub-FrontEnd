@@ -16,7 +16,15 @@
                 {{ job.max_exp_years }} years
               </span>
             </p>
+            <p class="card-text">
+              <span class="count">
+                <i class="fas fa-address-card"></i> Applicants Count: {{ job.applicants_count }}
+              </span>
+            </p>
             <div class="action-buttons">
+              <button class="btn btn-outline-primary" @click="viewJobEdit(job.id)">
+                <i class="fas fa-edit"></i> Edit Job
+              </button>
               <button class="btn btn-primary" @click="viewJobDetails(job.id)">
                 <i class="fas fa-eye"></i> View Details
               </button>
@@ -53,8 +61,11 @@ export default {
         this.loading = false
       }
     },
+    viewJobEdit(jobId) {
+      this.$router.push({ name: 'edit-job', params: { id: jobId } })
+    },
     viewJobDetails(jobId) {
-      this.$router.push({ name: 'job-details', params: { id: jobId } });
+      this.$router.push({ name: 'job-details', params: { id: jobId } })
     }
   }
 }
@@ -101,15 +112,17 @@ export default {
   margin-bottom: 10px;
 }
 
+.count,
 .location,
 .experience {
   display: inline-block;
   margin: 0 10px;
 }
 
+.count i,
 .location i,
 .experience i {
-  color: #ccc;
+  color: #aaa;
   margin-right: 5px;
 }
 
