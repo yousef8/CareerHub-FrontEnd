@@ -5,8 +5,14 @@
     <div v-else-if="error" class="text-center fs-4 fw-bold text-danger">Error loading job</div>
     <div v-else class="job-details-container">
       <div class="d-flex justify-content-baseline">
-      <img v-if="user && user.cover_image" :src="user.cover_image" class="card-img-top rounded-2" style="width: 100px; margin: 10px 10px;" alt="Cover Image">
-      <h1 class="heading mt-4">{{ job.title }}</h1>
+        <img
+          v-if="user && user.cover_image"
+          :src="user.cover_image"
+          class="card-img-top rounded-2"
+          style="width: 100px; margin: 10px 10px"
+          alt="Cover Image"
+        />
+        <h1 class="heading mt-4">{{ job.title }}</h1>
       </div>
       <div class="job-info">
         <p class="location">
@@ -29,17 +35,28 @@
       </div>
       <div class="actions mt-5">
         <!-- Apply Button with Spinner -->
-        <button class="btn btn-primary" type="button" :disabled="loading" @click.prevent="showApplyModal">
+        <button
+          class="btn btn-primary"
+          type="button"
+          :disabled="loading"
+          @click.prevent="showApplyModal"
+        >
           <span v-if="loading" class="spinner-grow spinner-grow-sm" aria-hidden="true"></span>
           <span v-if="loading" role="status">Applying...</span>
           <span v-else>Apply Now</span>
         </button>
-        <a href="#" class="btn btn-secondary">Copy Job link</a>
+        <a href="#" class="btn btn-secondary" @click="copyURL">Share job now</a>
       </div>
     </div>
 
     <!-- Apply Modal -->
-    <div v-if="authStore.isLogged && authStore.user?.role !== 'employer' " class="modal fade " tabindex="-1" role="dialog" :class="{ 'show': showModal, 'd-block': showModal }">
+    <div
+      v-if="authStore.isLogged && authStore.user?.role !== 'employer'"
+      class="modal fade"
+      tabindex="-1"
+      role="dialog"
+      :class="{ show: showModal, 'd-block': showModal }"
+    >
       <div class="modal-dialog shadow-lg" role="document">
         <div class="modal-content">
           <div class="modal-header">
@@ -94,7 +111,7 @@ export default {
         description: '',
         requirements: ''
       },
-      user: {}, 
+      user: {},
       loading: false,
       error: false,
       showModal: false,
@@ -102,8 +119,8 @@ export default {
     }
   },
   mounted() {
-    this.fetchJob();
-    this.fetchUser(); 
+    this.fetchJob()
+    this.fetchUser()
   },
   setup() {
     const authStore = useUserStore()
@@ -126,10 +143,10 @@ export default {
     },
     async fetchUser() {
       try {
-        const response = await api.get(`/user`); 
-        this.user = response.data;
+        const response = await api.get(`/user`)
+        this.user = response.data
       } catch (error) {
-        console.error('Error fetching user data:', error);
+        console.error('Error fetching user data:', error)
       }
     },
     showApplyModal() {
@@ -144,24 +161,52 @@ export default {
     },
     async applyForJob() {
       try {
-        this.loading = true; 
-        const formData = new FormData();
+        this.loading = true
+        const formData = new FormData()
         if (this.resume_path) {
-          formData.append('resume_path', this.resume_path);
+          formData.append('resume_path', this.resume_path)
         }
-        const response = await api.post(`/job-posts/${this.$route.params.id}/applications`, formData);
-        console.log('Application posted successfully:', response.data);
-        toast.success('Application posted successfully');
-        this.hideApplyModal();
+        const response = await api.post(
+          `/job-posts/${this.$route.params.id}/applications`,
+          formData
+        )
+        console.log('Application posted successfully:', response.data)
+        toast.success('Application posted successfully')
+        this.hideApplyModal()
       } catch (error) {
-        console.error('Error posting application:', error);
-        toast.error('You have already applied for this job post: ' + error);
+        console.error('Error posting application:', error)
+        toast.error('You have already applied for this job post: ' + error)
       } finally {
-        this.loading = false; 
+        this.loading = false
       }
+    },
+    copyURL() {
+      var tempInput = document.createElement('input')
+      tempInput.value = window.location.href
+      document.body.appendChild(tempInput)
+
+      tempInput.select()
+
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(tempInput.value).then(
+          function () {
+            toast.success('URL copied to clipboard')
+            console.log('URL copied to clipboard')
+          },
+          function (err) {
+            toast.error('Failed to copy URL to clipboard')
+            console.error('Failed to copy URL to clipboard', err)
+          }
+        )
+      } else {
+        document.execCommand('copy')
+        console.log('Copying text command was successful')
+      }
+
+      document.body.removeChild(tempInput)
     }
-  },
-};
+  }
+}
 </script>
 
 <style scoped>
