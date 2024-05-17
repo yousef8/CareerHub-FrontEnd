@@ -20,7 +20,7 @@
       <hr class="bg-light">
       <div class="row">
         <div class="col-md-12 text-center">
-          {{ new Date().getFullYear() }} — <strong>&copy; 2024 . All rights reserved.</strong>
+          {{ new Date().getFullYear() }} — <strong>&copy; 2024 . ITI OSAD 44 New Capital.</strong>
         </div>
       </div>
     </div>
