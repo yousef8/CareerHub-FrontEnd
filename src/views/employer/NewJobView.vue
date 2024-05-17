@@ -174,6 +174,8 @@
 
 <script lang="ts">
 import api from '@/utilities/axios'
+import { toast } from 'vue3-toastify'
+import 'vue3-toastify/dist/index.css'
 
 export default {
   data() {
@@ -204,26 +206,40 @@ export default {
         'type',
         'remote_type',
         'experience_level'
-      ]
+      ],
+      max_salary_error: false
     }
   },
   methods: {
     handleSubmit(event) {
       event.preventDefault()
-      this.submitted = true
+      try {
+        this.submitted = true
 
-      const hasEmptyFields = this.requiredFields.some((field) => !this.job[field])
-      if (hasEmptyFields) {
-        console.error('Please fill in all required fields.')
-        return
+        const hasEmptyFields = this.requiredFields.some((field) => !this.job[field])
+        if (hasEmptyFields) {
+          toast.error('Please fill in all required fields.')
+          return
+        }
+
+        if (this.job.max_salary < this.job.min_salary) {
+          throw new Error('Max salary must be greater than min salary.')
+        }
+
+        if (this.job.max_exp_years < this.job.min_exp_years) {
+          throw new Error('Max experience years must be greater than min experience years.')
+        }
+
+        this.postJob(this.job)
+      } catch (error) {
+        toast.error(error.message || 'Failed to post')
       }
-
-      this.postJob(this.job)
     },
     async postJob(job) {
       try {
         const response = await api.post('/job-posts', job)
         console.log('Job posted:', response.data)
+        toast.success('Job posted successfully!')
         this.job = {
           title: '',
           description: '',
@@ -242,8 +258,7 @@ export default {
         }
         this.submitted = false
       } catch (error) {
-        console.log('job:', this.job)
-        console.error('Error posting job:', error)
+        toast.error(error.message || 'Failed to post')
       }
     }
   }
