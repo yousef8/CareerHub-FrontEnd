@@ -1,7 +1,7 @@
 <template>
   <div class="card mb-3">
-    <!-- Display cover image if available -->
-    <img v-if="job.cover_image" :src="job.cover_image" class="card-img-top" alt="Cover Image">
+
+    <img v-if="user && user.cover_image" :src="user.cover_image" class="card-img-top" alt="Cover Image">
 
     <div class="card-body">
       <router-link :to="`/jobs/${job.id}`" class="text-decoration-none text-dark">
@@ -37,6 +37,10 @@
 export default {
   props: {
     job: {
+      type: Object,
+      default: () => ({})
+    },
+    user: {
       type: Object,
       default: () => ({})
     }
