@@ -2,9 +2,9 @@
   <div class="mb-5 border border-3 p-4 border-subtle-secondary shadow rounded">
     <h2 class="text-center mb-3"><span class="text-primary">Hello</span> {{ user.name }}</h2>
     <div class="card">
-      <div class="card-body row align-items-center">
-        <div class="col-lg-3 col-md-4 col-sm-12 mb-3 mb-md-0 text-center m-auto">
-          <img :src="user.profile_image ? user.profile_image : 'https://www.pngall.com/wp-content/uploads/5/User-Profile-PNG.png'" alt="User Image" class="img-fluid rounded-circle mb-4" style="max-width: 150px;">
+      <div class="card-body row align-items-center justify-content-center">
+        <div class="col-lg-3 col-md-4 col-sm-12 mb-3 mb-md-12 text-center m-auto">
+          <img :src="user.profile_image ? user.profile_image : 'https://www.pngall.com/wp-content/uploads/5/User-Profile-PNG.png'" alt="User Image" class="img-fluid rounded-circle mb-4" style="max-width: 120px;">
 
           <label for="imageUpload" class="btn btn-link">
             <i class="fas fa-camera fa-2x text-primary"></i>
