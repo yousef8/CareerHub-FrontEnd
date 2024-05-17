@@ -1,5 +1,5 @@
 <template>
-  <div class="mb-5 border border-3 p-4 border-secondary rounded">
+  <div class="mb-5 border border-3 p-4 border-subtle-secondary shadow rounded">
     <h2 class="text-center mb-4 fw-bold">Your Applications</h2>
     <div v-if="applications.length === 0" class="text-center">No applications found.</div>
     <div v-else>
