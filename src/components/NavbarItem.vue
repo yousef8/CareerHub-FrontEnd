@@ -24,7 +24,7 @@
           <router-link to="/jobs" class="text-decoration-none text-white">Jobs</router-link>
         </a>
       </div>
-      <div class="d-flex mx-auto mx-lg-0 w-100 w-lg-auto mt-2">
+      <div class="d-flex mx-auto mx-lg-0 w-75  w-lg-auto mt-2">
         <!-- Centered search bar -->
         <input
           class="form-control me-2"
@@ -37,7 +37,7 @@
           <button class="btn btn-outline-dark me-3 fw-bold text-white">Search</button>
         </router-link>
       </div>
-      <div class="navbar-nav ms-auto fs-4 mt-2">
+      <div class="navbar-nav ms-auto fs-4 mt-2  me-5">
         <router-link
           :to="{ name: 'login' }"
           class="text-decoration-none nav-item nav-link fs-4 me-4 p-2 rounded-5 text-white"
@@ -82,10 +82,10 @@
           </ul>
         </li>
         <div
-          class="profile-image-container"
+          class="profile-image-container ms-2 "
           v-if="authStore.isLogged && authStore.user?.profile_image"
         >
-          <img :src="authStore.user?.profile_image" class="rounded-circle" width="32" height="32" />
+          <img :src="authStore.user?.profile_image" class="rounded-circle" width="40" height="40" />
         </div>
       </div>
     </div>
