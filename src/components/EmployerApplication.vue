@@ -1,17 +1,26 @@
 <template>
   <div class="application-container">
-    <h2 class="application-heading">Applications</h2>
+    <h2 class="fw-bold text-primary mb-4">Candidate Applications</h2>
     <div v-if="applications.length === 0" class="no-applications">No applications found.</div>
     <div v-else>
-      <div v-for="(application, index) in applications" :key="index" class="application-card">
-        <div class="card-body">
-          <h5 class="card-title">Application ID: {{ application.id }}</h5>
-          <p class="card-text">Applicant Name: {{ application.applicantName }}</p>
-          <p class="card-text">Job Title: {{ application.jobTitle }}</p>
+      <div v-for="application in applications" :key="application.id">
+        <div v-if="application.status === 'pending'" class="application-card card-body">
+          <h5 class="card-title">Application {{ application.id }}</h5>
+          <p class="card-text my-3"><span class="text-secondary fw-semibold">Job Title:</span> {{
+            application.job_post.title }}</p>
+          <p class="card-text"><span class="text-secondary fw-semibold">Applicant Name:</span> {{
+            application.applicant.name }}</p>
+          <p class="card-text"><span class="text-secondary fw-semibold">Email:</span> {{ application.applicant.email }}
+          </p>
+          <p class="card-text"><span class="text-secondary fw-semibold">Phone Number:</span> {{
+            application.applicant.phone_number }}</p>
           <div class="action-buttons">
-            <button class="btn btn-primary"><i class="fas fa-eye"></i> View Details</button>
-            <button class="btn btn-success"><i class="fas fa-check"></i> Approve</button>
-            <button class="btn btn-danger"><i class="fas fa-times"></i> Reject</button>
+            <button v-if="application.resume_path" class="btn btn-primary"
+              @click="viewResume(application.resume_path)"><i class="fas fa-eye"></i> View CV</button>
+            <button class="btn btn-success" @click="handleApprove(application.id)"><i class="fas fa-check"></i>
+              Approve</button>
+            <button class="btn btn-danger" @click="handleReject(application.id)"><i class="fas fa-times"></i>
+              Reject</button>
           </div>
         </div>
       </div>
@@ -20,42 +29,65 @@
 </template>
 
 <script>
+import api from '@/utilities/axios'
+import { toast } from 'vue3-toastify'
+
 export default {
   data() {
     return {
-      applications: [
-        {
-          id: 1,
-          applicantName: 'John Doe',
-          jobTitle: 'Software Engineer',
-          status: 'Pending'
-        },
-        {
-          id: 2,
-          applicantName: 'Jane Smith',
-          jobTitle: 'Data Analyst',
-          status: 'Accepted'
-        }
-      ]
+      applications: []
+    }
+  },
+  mounted() {
+    this.fetchApplications()
+  },
+  methods: {
+    async fetchApplications() {
+      try {
+        const response = await api.get(`/employer/applications`)
+        this.applications = response.data
+      } catch (error) {
+        toast.error('Failed to show jobs. Please try again later.')
+      }
+    },
+    async handleApprove(applicationId) {
+      try {
+        await api.put(`/applications/${applicationId}/approve`);
+        this.updateApplicationStatus(applicationId, 'accepted');
+        toast.success(`Application number ${applicationId} is approved`);
+      } catch (error) {
+        toast.error('Failed to approve application. Please try again later.');
+      }
+    },
+    async handleReject(applicationId) {
+      try {
+        await api.put(`/applications/${applicationId}/reject`);
+        this.updateApplicationStatus(applicationId, 'rejected');
+        toast.success(`Application number ${applicationId} is rejected`);
+      } catch (error) {
+        toast.error('Failed to reject application. Please try again later.');
+      }
+    },
+    updateApplicationStatus(applicationId, newStatus) {
+      const application = this.applications.find(app => app.id === applicationId)
+      if (application) {
+        application.status = newStatus
+      }
+    },
+    viewResume(resumeUrl) {
+      window.location.href = resumeUrl
     }
   }
 }
 </script>
 
 <style>
-/* Style the application container */
 .application-container {
   padding: 2rem;
   border: 1px solid #ddd;
   border-radius: 4px;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
   margin-bottom: 2rem;
-}
-
-.application-heading {
-  text-align: center;
-  font-size: 1.5rem;
-  margin-bottom: 1rem;
 }
 
 .no-applications {
@@ -69,7 +101,7 @@ export default {
   border: 1px solid #eee;
   border-radius: 4px;
   margin-bottom: 1rem;
-  padding: 1rem;
+  padding: 1rem 0.7rem;
 }
 
 .card-title {
@@ -83,23 +115,19 @@ export default {
 
 .action-buttons {
   display: flex;
+  flex-wrap: wrap;
   justify-content: center;
+  align-items: center;
   margin-top: 1rem;
 }
 
 .btn {
-  margin-right: 0.5rem;
+  margin: 0.5rem;
 }
 
-.btn-success {
-  background-color: #28a745;
-  color: #fff;
-  border-color: #28a745;
-}
-
-.btn-danger {
-  background-color: #dc3545;
-  color: #fff;
-  border-color: #dc3545;
+@media (max-width: 576px) {
+  .application-container {
+    padding: 2rem 0.5rem;
+  }
 }
 </style>

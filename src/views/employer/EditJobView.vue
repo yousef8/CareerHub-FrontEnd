@@ -46,6 +46,82 @@
             Job requirmenets are required.
           </div>
         </div>
+        <div class="mb-3 w-75">
+          <label for="skills" class="form-label">Skills</label>
+          <button class="edit-b" @click.prevent="toggleEdit('skills')">Edit</button>
+          <input
+            v-model="this.skillsString"
+            type="text"
+            id="skills"
+            class="form-control"
+            :disabled="!this.activeFields.skills"
+          />
+          <div v-if="!job.skills && submitted" class="invalid-feedback">Skills are required.</div>
+        </div>
+        <div class="mb-3 w-75">
+          <label for="industry" class="form-label">Industry</label>
+          <button class="edit-b" @click.prevent="toggleEdit('industry')">Edit</button>
+          <input
+            v-model="this.industriesString"
+            type="text"
+            id="industry"
+            class="form-control"
+            :disabled="!this.activeFields.industry"
+            placeholder="e.g. Tech, Finance, Healthcare, etc."
+          />
+          <div v-if="!job.industry && submitted" class="invalid-feedback">
+            Industry is required.
+          </div>
+        </div>
+
+        <div class="mb-3 w-75">
+          <label for="experienceLevel" class="form-label">Experience Level</label>
+          <button class="edit-b" @click.prevent="toggleEdit('experience_level')">Edit</button>
+          <select
+            v-model="job.experience_level"
+            id="experienceLevel"
+            class="form-control"
+            required
+            :disabled="!this.activeFields.experience_level"
+          >
+            <option value="">Select Experience Level</option>
+            <option value="entry_level">Entry Level</option>
+            <option value="associate">Associate</option>
+            <option value="director">Director</option>
+            <option value="executive">Executive</option>
+          </select>
+          <div v-if="!job.experience_level && submitted" class="invalid-feedback">
+            Experience level is required.
+          </div>
+        </div>
+
+        <div class="mb-3 w-75 d-flex flex-wrap justify-content-between">
+          <div style="width: 450px">
+            <label for="minExpYears" class="form-label">Minimum Experience (Years)</label>
+            <button class="edit-b" @click.prevent="toggleEdit('min_exp_years')">Edit</button>
+            <input
+              v-model="job.min_exp_years"
+              type="number"
+              id="minExpYears"
+              class="form-control"
+              required
+              :disabled="!this.activeFields.min_exp_years"
+            />
+          </div>
+          <div style="width: 450px">
+            <label for="maxExpYears" class="form-label">Maximum Experience (Years)</label>
+            <button class="edit-b" @click.prevent="toggleEdit('max_exp_years')">Edit</button>
+            <input
+              v-model="job.max_exp_years"
+              type="number"
+              id="maxExpYears"
+              class="form-control"
+              required
+              :disabled="!this.activeFields.max_exp_years"
+            />
+          </div>
+        </div>
+
         <div class="mb-3 w-75 d-flex flex-wrap justify-content-between">
           <div style="width: 450px">
             <label for="city" class="form-label">City</label>
@@ -76,32 +152,7 @@
             </div>
           </div>
         </div>
-        <div class="mb-3 w-75 d-flex flex-wrap justify-content-between">
-          <div style="width: 450px">
-            <label for="minExpYears" class="form-label">Minimum Experience (Years)</label>
-            <button class="edit-b" @click.prevent="toggleEdit('min_exp_years')">Edit</button>
-            <input
-              v-model="job.min_exp_years"
-              type="number"
-              id="minExpYears"
-              class="form-control"
-              required
-              :disabled="!this.activeFields.min_exp_years"
-            />
-          </div>
-          <div style="width: 450px">
-            <label for="maxExpYears" class="form-label">Maximum Experience (Years)</label>
-            <button class="edit-b" @click.prevent="toggleEdit('max_exp_years')">Edit</button>
-            <input
-              v-model="job.max_exp_years"
-              type="number"
-              id="maxExpYears"
-              class="form-control"
-              required
-              :disabled="!this.activeFields.max_exp_years"
-            />
-          </div>
-        </div>
+
         <div class="mb-3 w-75 d-flex flex-wrap justify-content-between">
           <div style="width: 450px">
             <label for="minSalary" class="form-label">Minimum Salary (Optional)</label>
@@ -137,10 +188,12 @@
               required
               :disabled="!this.activeFields.type"
             >
+              <option value="">Select Job Type</option>
               <option value="full-time">Full Time</option>
               <option value="part-time">Part Time</option>
               <option value="contract">Contract</option>
             </select>
+            <div v-if="!job.type && submitted" class="invalid-feedback">Job type is required.</div>
           </div>
           <div style="width: 450px">
             <label for="remoteType" class="form-label">Remote Type</label>
@@ -152,10 +205,13 @@
               required
               :disabled="!this.activeFields.remote_type"
             >
-              <option value="on-site">On-Site</option>
               <option value="remote">Remote</option>
               <option value="hybrid">Hybrid</option>
+              <option value="on-site">On-Site</option>
             </select>
+            <div v-if="!job.remote_type && submitted" class="invalid-feedback">
+              Remote type is required.
+            </div>
           </div>
           <div class="my-5">
             <button class="btn btn-primary" @click="handleSubmit">Update</button>
@@ -167,26 +223,40 @@
 </template>
 
 <script lang="ts">
+import api from '@/utilities/axios'
+import { toast } from 'vue3-toastify'
+import 'vue3-toastify/dist/index.css'
+
 export default {
   data() {
     return {
       job: {
-        title: 'Software Engineer - Front-End',
-        description:
-          'We are looking for a talented and passionate front-end engineer to join our growing team. You will be responsible for building and maintaining user interfaces for our web applications. This is a great opportunity to work on cutting-edge technologies and make a real impact on our product.',
-        requirements:
-          '- Proven experience with HTML, CSS, and Javascript\n- Experience with a front-end framework like React or Vue.js (a plus)\n- Strong understanding of web development best practices\n- Excellent communication and collaboration skills',
-        city: 'San Francisco',
-        country: 'USA',
-        min_salary: 100000,
-        max_salary: 120000,
-        min_exp_years: 2,
-        max_exp_years: 5,
-        type: 'Full-Time',
-        remote_type: 'Hybrid (office and remote work possible)'
+        title: '',
+        description: '',
+        requirements: '',
+        city: '',
+        country: '',
+        min_salary: 0,
+        max_salary: 100000,
+        min_exp_years: 0,
+        max_exp_years: 0,
+        type: '',
+        remote_type: '',
+        skills: '',
+        industries: '',
+        experience_level: ''
       },
       submitted: false,
-      requiredFields: ['title', 'description', 'requirements', 'city', 'country'],
+      requiredFields: [
+        'title',
+        'description',
+        'requirements',
+        'city',
+        'country',
+        'type',
+        'remote_type',
+        'experience_level'
+      ],
       activeFields: {
         title: false,
         description: false,
@@ -198,9 +268,17 @@ export default {
         min_exp_years: false,
         max_exp_years: false,
         type: false,
-        remote_type: false
-      }
+        remote_type: false,
+        skills: false,
+        industries: false,
+        experience_level: false
+      },
+      skillsString: '',
+      industriesString: ''
     }
+  },
+  mounted() {
+    this.getJob()
   },
   methods: {
     handleSubmit(event) {
@@ -208,19 +286,77 @@ export default {
       this.submitted = true
 
       // Will Send the job data to the server here
+      this.postJob(this.job)
 
       const hasEmptyFields = this.requiredFields.some((field) => !this.job[field])
+      const Emptyfields = this.requiredFields.find((field) => !this.job[field])
       if (hasEmptyFields) {
+        toast.error('Please fill in all required fields.')
+        toast.error(Emptyfields + ' is required')
         console.error('Please fill in all required fields.')
         return
       }
 
       console.log('Job submitted:', this.job)
-
       this.submitted = false
     },
     toggleEdit(field) {
       this.activeFields[field] = true
+    },
+    async postJob(job) {
+      try {
+        const id = this.$route.params.id
+        job.skills = this.skillsString
+        job.industries = this.industriesString
+
+        const ignoredFields = [
+          'id',
+          'expires_at',
+          'status',
+          'user_id',
+          'created_at',
+          'updated_at',
+          'applicants_count'
+        ]
+
+        for (const key of Object.keys(job)) {
+          if (ignoredFields.includes(key)) {
+            delete job[key]
+          }
+        }
+
+        console.log('Job to be updated:', job)
+
+        const response = await api.put(`/job-posts/${id}`, job)
+
+        if (response.status === 200) {
+          toast.success('Job updated successfully')
+        } else {
+          toast.error(response.data.message || 'Failed to post')
+        }
+
+        this.submitted = false
+      } catch (error) {
+        toast.error(error.message || 'Failed to post')
+      }
+    },
+    async getJob() {
+      try {
+        const id = this.$route.params.id
+        const response = await api.get(`/job-posts/${id}`)
+        this.job = response.data
+        this.extractSkillNames(this.job.skills)
+        this.extractIndustryNames(this.job.industries)
+        console.log('Job fetched:', this.job)
+      } catch (error) {
+        toast.error(error.message || 'Failed to fetch job')
+      }
+    },
+    extractSkillNames(skillsObject) {
+      this.skillsString = skillsObject.map((skill) => skill.name).join(', ')
+    },
+    extractIndustryNames(industriesObject) {
+      this.industriesString = industriesObject.map((industry) => industry.name).join(', ')
     }
   }
 }
@@ -228,7 +364,6 @@ export default {
 
 <style scoped>
 .job-posting-container {
-  margin: 2rem auto;
   padding: 1rem;
   border: 1px solid #ddd;
   border-radius: 4px;
@@ -300,4 +435,3 @@ export default {
   text-decoration: underline;
 }
 </style>
-
