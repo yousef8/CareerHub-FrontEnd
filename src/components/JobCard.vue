@@ -5,14 +5,27 @@
         <h3 class="card-title text-primary">{{ job.title }}</h3>
       </router-link>
       <h6 class="card-subtitle mb-2 text-muted">{{ job.company }}</h6>
-      <p class="card-text">Location: {{ job.city }}, {{ job.country }}</p>
-      <p class="card-text">Salary: {{ job.min_salary }} - {{ job.max_salary }}</p>
-      <p class="card-text">Experience: {{ job.min_exp_years }} - {{ job.max_exp_years }} years</p>
-      <p class="card-text">Type: {{ job.type }}</p>
-      <p class="card-text">Remote: {{ job.remote_type }}</p>
-      <p class="card-text">Experience Level: {{ job.experience_level }}</p>
-      <p class="card-text">Expires at: {{ job.expires_at }}</p>
-      <p class="card-text">Approved: {{ job.is_approved ? 'Yes' : 'No' }}</p>
+      <p class="card-text fs-5">
+        <i class="fas fa-map-marker-alt text-secondary"></i> Location: {{ job.city }}, {{ job.country }}
+      </p>
+      <p class="card-text fs-5">
+        <i class="fas fa-dollar-sign text-secondary"></i> Salary: {{ formattedSalary }}
+      </p>
+      <p class="card-text fs-5">
+        <i class="fas fa-clock text-secondary"></i> Experience: {{ job.min_exp_years }} - {{ job.max_exp_years }} years
+      </p>
+      <p class="card-text fs-5">
+        <i class="fas fa-cog text-secondary"></i> Type: <span class="badge text-bg-success "> {{ job.type }}</span> 
+      </p>
+      <p class="card-text fs-5">
+        <i class="fas fa-globe text-secondary"></i> Remote: {{ job.remote_type }}
+      </p>
+      <p class="card-text fs-5">
+        <i class="fas fa-star text-secondary"></i> Experience Level: {{ job.experience_level }}
+      </p>
+      <p class="card-text fs-5">
+        <i class="fas fa-calendar-alt text-secondary"></i> Expires at: {{ formattedExpiresAt }}
+      </p>
     </div>
   </div>
 </template>
@@ -21,6 +34,27 @@
 export default {
   props: {
     job: Object
+  },
+  computed: {
+    formattedSalary() {
+      const minSalary = this.formatNumberToK(this.job.min_salary);
+      const maxSalary = this.formatNumberToK(this.job.max_salary);
+      return `${minSalary} - ${maxSalary}`;
+    },
+    formattedExpiresAt() {
+      const dateTimeParts = this.job.expires_at.split(' ');
+      const datePart = dateTimeParts[0];
+      const formattedDate = new Date(datePart).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+      return formattedDate;
+    }
+  },
+  methods: {
+    formatNumberToK(number) {
+      if (number >= 1000) {
+        return `${(number / 1000).toFixed(1)}k`;
+      }
+      return number;
+    }
   }
 }
 </script>
