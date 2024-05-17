@@ -108,13 +108,24 @@ export default {
     };
   },
   created() {
-    const userData = localStorage.getItem('user');
-    if (userData) {
-      this.user = JSON.parse(userData);
-      this.editedUser = { ...this.user };
-    }
+    // const userData = localStorage.getItem('user');
+    // if (userData) {
+    //   this.user = JSON.parse(userData);
+    //   this.editedUser = { ...this.user };
+    // }
+    this.fetchUserData();
   },
   methods: {
+    async fetchUserData() {
+    try {
+      const response = await api.get('/user');
+      this.user = response.data;
+      this.editedUser = { ...this.user };
+    } catch (error) {
+      console.error('Error fetching user data:', error);
+      // Handle error fetching user data
+    }
+  },
     startEditing(key) {
       Object.keys(this.editing).forEach(editKey => {
         this.editing[editKey] = editKey === key;
