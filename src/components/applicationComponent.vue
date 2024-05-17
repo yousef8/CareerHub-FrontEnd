@@ -18,8 +18,7 @@
           <p class="card-text fs-5 fw-bold" :style="{ color: getStatusColor(application.status) }"><span class="text-primary">Status: </span> {{ application.status }}</p>
          
           <button @click="cancelApplication(application.id)" class="btn btn-danger"><i class="fas fa-trash"></i> Cancel</button>
-        </div>
-      </div>
+
     </div>
   </div>
 </template>
@@ -27,6 +26,8 @@
 <script>
 import axios from 'axios';
 import { toast } from 'vue3-toastify'
+import 'vue3-toastify/dist/index.css'
+
 
 export default {
   data() {
@@ -43,6 +44,7 @@ export default {
 
       if (accessToken) {
         axios.get(`${import.meta.env.VITE_API_URL}/candidate/applications`, {
+
           headers: {
             Authorization: `Bearer ${accessToken}`
           }
@@ -53,6 +55,7 @@ export default {
         .catch(error => {
           console.error('Error fetching applications:', error);
           toast.error('Error fetching applications: ' + error);
+
         });
       }
     },
@@ -92,4 +95,5 @@ export default {
 </script>
 
 <style>
+
 </style>
