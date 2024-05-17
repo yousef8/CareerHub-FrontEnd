@@ -32,7 +32,7 @@
     </div>
 
     <!-- Apply Modal -->
-    <div class="modal fade " tabindex="-1" role="dialog" :class="{ 'show': showModal, 'd-block': showModal }">
+    <div v-if="authStore.isLogged" class="modal fade " tabindex="-1" role="dialog" :class="{ 'show': showModal, 'd-block': showModal }">
       <div class="modal-dialog shadow-lg" role="document">
         <div class="modal-content">
           <div class="modal-header">
@@ -59,6 +59,8 @@
 <script>
 import api from '@/utilities/axios';
 import { toast } from 'vue3-toastify'
+import { useUserStore } from '@/stores/user'
+
 
 export default {
   data() {
@@ -82,6 +84,12 @@ export default {
   },
   mounted() {
     this.fetchJob();
+  },
+  setup() {
+    const authStore = useUserStore();
+    return {
+      authStore,
+    };
   },
   methods: {
     async fetchJob() {
