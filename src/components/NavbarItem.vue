@@ -24,11 +24,19 @@
           <router-link to="/jobs" class="text-decoration-none text-white">Jobs</router-link>
         </a>
       </div>
-      <form class="d-flex mx-auto mx-lg-0 w-100 w-lg-auto mt-2">
+      <div class="d-flex mx-auto mx-lg-0 w-100 w-lg-auto mt-2">
         <!-- Centered search bar -->
-        <input class="form-control me-2 w-100" type="search" placeholder="Search" aria-label="Search" />
-        <button class="btn btn-outline-dark me-3 fw-bold text-white" type="submit">Search</button>
-      </form>
+        <input
+          class="form-control me-2"
+          type="search"
+          placeholder="Search"
+          aria-label="Search"
+          v-model="searchStore.query"
+        />
+        <router-link to="/jobs">
+          <button class="btn btn-outline-dark me-3 fw-bold text-white">Search</button>
+        </router-link>
+      </div>
       <div class="navbar-nav ms-auto fs-4 mt-2">
         <router-link
           :to="{ name: 'login' }"
@@ -45,7 +53,7 @@
 
         <li class="nav-item dropdown rounded-3 me-2" v-if="authStore.isLogged">
           <a
-            class="nav-link dropdown-toggle text-white "
+            class="nav-link dropdown-toggle text-white"
             href="#"
             id="navbarDropdown"
             role="button"
@@ -58,33 +66,55 @@
             <router-link
               :to="{ name: 'profile-applications' }"
               class="text-decoration-none text-white"
-              >
-                <li><a class="dropdown-item fs-5" href="#">Profile</a></li>
+            >
+              <li><a class="dropdown-item fs-5" href="#">Profile</a></li>
             </router-link>
 
-            <router-link v-if="authStore.user?.role === 'employer'" :to="{ name: 'employer-overview' }" class="text-decoration-none text-white"><li><a class="dropdown-item fs-5">Overview</a></li></router-link>
-            <router-link :to="{ name: 'logout' }" class="text-decoration-none text-white"><li><a class="dropdown-item fs-5">Logout</a></li></router-link>
-
+            <router-link
+              v-if="authStore.user?.role === 'employer'"
+              :to="{ name: 'employer-overview' }"
+              class="text-decoration-none text-white"
+              ><li><a class="dropdown-item fs-5">Overview</a></li></router-link
+            >
+            <router-link :to="{ name: 'logout' }" class="text-decoration-none text-white"
+              ><li><a class="dropdown-item fs-5">Logout</a></li></router-link
+            >
           </ul>
         </li>
-    <div class="profile-image-container" v-if="authStore.isLogged && authStore.user?.profile_image">
-        <img :src="authStore.user?.profile_image" class="rounded-circle" width="32" height="32" >
-    </div>
-       
+        <div
+          class="profile-image-container"
+          v-if="authStore.isLogged && authStore.user?.profile_image"
+        >
+          <img :src="authStore.user?.profile_image" class="rounded-circle" width="32" height="32" />
+        </div>
       </div>
     </div>
   </nav>
 </template>
-<script setup lang="ts">
-import { useUserStore } from '@/stores/user'
 
-const authStore = useUserStore()
+<script lang="ts">
+import { useUserStore } from '@/stores/user'
+import { useSearchStore } from '@/stores/search'
+
+export default {
+  name: 'NavbarItem',
+  data() {
+    return {
+      authStore: useUserStore(),
+      searchStore: useSearchStore()
+    }
+  },
+  methods: {
+    sendQuery(e: Event) {
+      e.preventDefault()
+      this.searchStore.setSearchQuery(this.searchStore.query)
+    }
+  }
+}
 </script>
 
 <style>
 .nav-item:hover {
   background-color: black;
 }
-
 </style>
-
