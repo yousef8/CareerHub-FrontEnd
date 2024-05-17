@@ -4,8 +4,10 @@
     <div v-if="loading" class="text-center fs-4 fw-bold text-primary">Loading...</div>
     <div v-else-if="error" class="text-center fs-4 fw-bold text-danger">Error loading job</div>
     <div v-else class="job-details-container">
-      <img v-if="user && user.cover_image" :src="user.cover_image" class="card-img-top" style="width: 100px; margin: 10px 10px;" alt="Cover Image">
-      <h1 class="heading">{{ job.title }}</h1>
+      <div class="d-flex justify-content-baseline">
+      <img v-if="user && user.cover_image" :src="user.cover_image" class="card-img-top rounded-2" style="width: 100px; margin: 10px 10px;" alt="Cover Image">
+      <h1 class="heading mt-4">{{ job.title }}</h1>
+      </div>
       <div class="job-info">
         <p class="location">
           <i class="fas fa-map-marker-alt"></i> {{ job.city }}, {{ job.country }}
@@ -86,6 +88,7 @@ export default {
         description: '',
         requirements: ''
       },
+      user: {}, 
       loading: false,
       error: false,
       showModal: false,
@@ -94,7 +97,7 @@ export default {
   },
   mounted() {
     this.fetchJob();
-    this.userData
+    this.fetchUser(); 
   },
   setup() {
     const authStore = useUserStore();
@@ -115,12 +118,14 @@ export default {
         this.loading = false;
       }
     },
-    created() {
-    const userData = localStorage.getItem('user');
-    if (userData) {
-      this.user = JSON.parse(userData);
-      this.editedUser = { ...this.user };
-    }},
+    async fetchUser() {
+      try {
+        const response = await api.get(`/user`); 
+        this.user = response.data;
+      } catch (error) {
+        console.error('Error fetching user data:', error);
+      }
+    },
     showApplyModal() {
       this.showModal = true;
     },
