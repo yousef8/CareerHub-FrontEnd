@@ -157,7 +157,7 @@
               <option value="">Select Remote Type</option>
               <option value="remote">Remote</option>
               <option value="hybrid">Hybrid</option>
-              <option value="onsite">Onsite</option>
+              <option value="on-site">Onsite</option>
             </select>
             <div v-if="!job.remote_type && submitted" class="invalid-feedback">
               Remote type is required.
@@ -217,6 +217,7 @@ export default {
         this.submitted = true
 
         const hasEmptyFields = this.requiredFields.some((field) => !this.job[field])
+
         if (hasEmptyFields) {
           toast.error('Please fill in all required fields.')
           return
