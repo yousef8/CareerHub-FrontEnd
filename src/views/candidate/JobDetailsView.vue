@@ -32,18 +32,31 @@
     </div>
 
     <!-- Apply Modal -->
-    <div v-if="authStore.isLogged" class="modal fade " tabindex="-1" role="dialog" :class="{ 'show': showModal, 'd-block': showModal }">
+    <div
+      v-if="authStore.isLogged"
+      class="modal fade"
+      tabindex="-1"
+      role="dialog"
+      :class="{ show: showModal, 'd-block': showModal }"
+    >
       <div class="modal-dialog shadow-lg" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title me-5">Apply for <span class="text-primary">{{ job.title }}</span> job</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" @click="hideApplyModal">
-            </button>
+            <h5 class="modal-title me-5">
+              Apply for <span class="text-primary">{{ job.title }}</span> job
+            </h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+              @click="hideApplyModal"
+            ></button>
           </div>
           <div class="modal-body">
             <div class="form-group">
               <label for="cv">Upload CV (Optional)</label>
-              <input type="file" class="form-control-file" id="cv" @change="handleFileChange">
+              <input type="file" class="form-control-file" id="cv" @change="handleFileChange" />
             </div>
           </div>
           <div class="modal-footer">
@@ -57,10 +70,9 @@
 </template>
 
 <script>
-import api from '@/utilities/axios';
+import api from '@/utilities/axios'
 import { toast } from 'vue3-toastify'
 import { useUserStore } from '@/stores/user'
-
 
 export default {
   data() {
@@ -80,58 +92,60 @@ export default {
       error: false,
       showModal: false,
       resume_path: ''
-    };
+    }
   },
   mounted() {
-    this.fetchJob();
+    this.fetchJob()
   },
   setup() {
-    const authStore = useUserStore();
+    const authStore = useUserStore()
     return {
-      authStore,
-    };
+      authStore
+    }
   },
   methods: {
     async fetchJob() {
-      this.loading = true;
+      this.loading = true
       try {
-        const response = await api.get(`/jobs/${this.$route.params.id}`);
-        this.job = response.data;
-        this.loading = false;
+        const response = await api.get(`/job-posts/${this.$route.params.id}`)
+        this.job = response.data
+        this.loading = false
       } catch (error) {
-        console.error('Error fetching job:', error);
-        this.error = true;
-        this.loading = false;
+        console.error('Error fetching job:', error)
+        this.error = true
+        this.loading = false
       }
     },
     showApplyModal() {
-      this.showModal = true;
+      this.showModal = true
     },
     hideApplyModal() {
-      this.showModal = false;
-      this.resume_path = null;
+      this.showModal = false
+      this.resume_path = null
     },
     handleFileChange(event) {
-      this.resume_path = event.target.files[0];
+      this.resume_path = event.target.files[0]
     },
-  async applyForJob() {
-  try {
-    const formData = new FormData();
-    if (this.resume_path) {
-      formData.append('resume_path', this.resume_path);
+    async applyForJob() {
+      try {
+        const formData = new FormData()
+        if (this.resume_path) {
+          formData.append('resume_path', this.resume_path)
+        }
+        const response = await api.post(
+          `/job-posts/${this.$route.params.id}/applications`,
+          formData
+        )
+        console.log('Application posted successfully:', response.data)
+        toast.success('Application posted successfully')
+        this.hideApplyModal()
+      } catch (error) {
+        console.error('Error posting application:', error)
+        toast.error('You have already applied for this job post: ' + error)
+      }
     }
-    const response = await api.post(`/job-posts/${this.$route.params.id}/applications`, formData);
-    console.log('Application posted successfully:', response.data);
-    toast.success('Application posted successfully');
-    this.hideApplyModal();
-  } catch (error) {
-    console.error('Error posting application:', error);
-    toast.error('You have already applied for this job post: ' + error);
   }
 }
-
-  },
-};
 </script>
 
 <style scoped>
@@ -192,5 +206,4 @@ export default {
 .actions a {
   margin-left: 10px;
 }
-
 </style>
