@@ -43,9 +43,9 @@
           >Register</router-link
         >
 
-        <li class="nav-item dropdown rounded-3" v-if="authStore.isLogged">
+        <li class="nav-item dropdown rounded-3 me-2" v-if="authStore.isLogged">
           <a
-            class="nav-link dropdown-toggle text-white"
+            class="nav-link dropdown-toggle text-white "
             href="#"
             id="navbarDropdown"
             role="button"
@@ -61,8 +61,10 @@
               >
                 <li><a class="dropdown-item fs-5" href="#">Profile</a></li>
             </router-link>
-            <router-link :to="{ name: 'logout' }" class="text-decoration-none text-white"><li><a class="dropdown-item fs-5">Logout</a></li></router-link>
+
             <router-link v-if="authStore.user?.role === 'employer'" :to="{ name: 'employer-overview' }" class="text-decoration-none text-white"><li><a class="dropdown-item fs-5">Overview</a></li></router-link>
+            <router-link :to="{ name: 'logout' }" class="text-decoration-none text-white"><li><a class="dropdown-item fs-5">Logout</a></li></router-link>
+
           </ul>
         </li>
     <div class="profile-image-container" v-if="authStore.isLogged && authStore.user?.profile_image">
@@ -83,9 +85,6 @@ const authStore = useUserStore()
 .nav-item:hover {
   background-color: black;
 }
-.profile-image-container {
-  display: flex;
-  align-items: center;
-  margin-left: 10px; /* Adjust this margin as needed */
-}
+
 </style>
+

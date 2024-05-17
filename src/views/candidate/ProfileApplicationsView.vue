@@ -12,7 +12,7 @@
             >Profile</a
           >
         </li>
-        <li class="breadcrumb-item">
+        <li class="breadcrumb-item" v-if="authStore.user && authStore.user.role !== 'employer'">
           <a
             href="#"
             class="text-dark text-decoration-none fs-4 fw-bold"
@@ -33,6 +33,7 @@
 <script lang="ts">
 import profileComponent from '../../components/profileComponent.vue'
 import applicationComponent from '../../components/applicationComponent.vue'
+import { useUserStore } from '@/stores/user'
 
 export default {
   data() {
@@ -44,6 +45,12 @@ export default {
   components: {
     profileComponent,
     applicationComponent
+  },
+  setup() {
+    const authStore = useUserStore();
+    return {
+      authStore,
+    };
   }
 }
 </script>
