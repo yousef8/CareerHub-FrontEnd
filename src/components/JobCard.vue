@@ -1,5 +1,8 @@
 <template>
   <div class="card mb-3">
+    <!-- Display cover image if available -->
+    <img v-if="job.cover_image" :src="job.cover_image" class="card-img-top" alt="Cover Image">
+
     <div class="card-body">
       <router-link :to="`/jobs/${job.id}`" class="text-decoration-none text-dark">
         <h3 class="card-title text-primary">{{ job.title }}</h3>
@@ -33,7 +36,10 @@
 <script>
 export default {
   props: {
-    job: Object
+    job: {
+      type: Object,
+      default: () => ({})
+    }
   },
   computed: {
     formattedSalary() {
