@@ -109,23 +109,26 @@ export default {
     },
     hideApplyModal() {
       this.showModal = false;
-      // Reset resume_path when modal is hidden
       this.resume_path = null;
     },
     handleFileChange(event) {
       this.resume_path = event.target.files[0];
     },
-    async applyForJob() {
+  async applyForJob() {
   try {
-    const response = await api.post(`/job-posts/${this.$route.params.id}/applications`, this.resume_path);
+    const formData = new FormData();
+    if (this.resume_path) {
+      formData.append('resume_path', this.resume_path);
+    }
+    const response = await api.post(`/job-posts/${this.$route.params.id}/applications`, formData);
     console.log('Application posted successfully:', response.data);
-    toast.success('Application posted successfully')
+    toast.success('Application posted successfully');
     this.hideApplyModal();
   } catch (error) {
     console.error('Error posting application:', error);
-    toast.error('You have already applied for this job post:' + error);
+    toast.error('You have already applied for this job post: ' + error);
   }
-},
+}
 
   },
 };
