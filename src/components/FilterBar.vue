@@ -73,22 +73,6 @@
         <option value="70000">$70,000</option>
       </select>
 
-      <!-- <select
-        v-model="filter.posted_after"
-        name="posted_after"
-        id="posted_after"
-        :class="{
-          'active-drop-down': filter.posted_after !== '',
-          dropdown: filter.posted_after === ''
-        }"
-      >
-        <option value="">Date Posted</option>
-        <option :value="Date.now() - ">1 day ago</option>
-        <option :value="Date.now() - 3">3 days ago</option>
-        <option :value="Date.now() - 7">1 week ago</option>
-        <option :value="Date.now() - 30">1 month ago</option>
-      </select> -->
-
       <select
         v-model="filter.skills"
         name="skills"
