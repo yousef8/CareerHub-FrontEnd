@@ -2,22 +2,22 @@ import { createRouter, createWebHistory } from 'vue-router'
 import { useUserStore } from '@/stores/user'
 import { toast } from 'vue3-toastify'
 
-import HomeView from '@/views/HomeView.vue'
-import LoginView from '@/views/LoginView.vue'
-import LogoutView from '@/views/LogoutView.vue'
-import RegisterView from '@/views/RegisterView.vue'
-import NotFoundView from '@/views/NotFoundView.vue'
+const HomeView = () => import('@/views/HomeView.vue');
+const NotFoundView = () => import('@/views/NotFoundView.vue');
+const LoginView = () => import('@/views/LoginView.vue');
+const RegisterView = () => import('@/views/RegisterView.vue');
+const LogoutView = () => import('@/views/LogoutView.vue');
 
-import JobsView from '@/views/candidate/JobsView.vue'
-import JobDetailsView from '@/views/candidate/JobDetailsView.vue'
-import ProfileApplicationsView from '@/views/candidate/ProfileApplicationsView.vue'
+const JobsView = () => import('@/views/candidate/JobsView.vue');
+const JobDetailsView = () => import('@/views/candidate/JobDetailsView.vue');
+const ProfileApplicationsView = () => import('@/views/candidate/ProfileApplicationsView.vue');
 
-import NewJobView from '@/views/employer/NewJobView.vue'
-import EditJobView from '@/views/employer/EditJobView.vue'
-import OverviewView from '@/views/employer/OverviewView.vue'
+const NewJobView = () => import('@/views/employer/NewJobView.vue');
+const EditJobView = () => import('@/views/employer/EditJobView.vue');
+const OverviewView = () => import('@/views/employer/OverviewView.vue');
 
-import AdminView from '@/views/admin/AdminView.vue'
-import AdminAnalyticsView from '@/views/admin/AdminAnalyticsView.vue'
+const AdminView = () => import('@/views/admin/AdminView.vue');
+const AdminAnalyticsView = () => import('@/views/admin/AdminAnalyticsView.vue');
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -63,53 +63,54 @@ const router = createRouter({
     {
       path: '/jobs/new',
       name: 'new-job',
+      meta: { employerOnly: true },
       component: NewJobView
     },
     {
       path: '/jobs/:id/edit',
       name: 'edit-job',
+      meta: { employerOnly: true },
       component: EditJobView
     },
     {
       path: '/overview',
       name: 'employer-overview',
+      meta: { employerOnly: true },
       component: OverviewView
     },
     {
       path: '/admin',
       name: 'admin',
-      // meta: { adminOnly: true },
+      meta: { adminOnly: true },
       component: AdminView
     },
     {
       path: '/admin/analytics',
       name: 'admin-analytics',
-      // meta: { adminOnly: true },
+      meta: { adminOnly: true },
       component: AdminAnalyticsView
     },
     {
       path: '/:pathMatch(.*)*',
+      name: 'not-found',
       component: NotFoundView
     }
   ]
 })
 
-router.beforeEach((to) => {
+router.beforeEach((to, from, next) => {
   const userStore = useUserStore()
 
-  if (to.meta.guestOnly && userStore.isLogged) {
-    toast.error('You are already logged in')
-    return false
-  }
-
   if (to.meta.authOnly && !userStore.isLogged) {
-    toast.error('You must log in first')
-    return false
-  }
-
-  if (to.meta.adminOnly && (!userStore.isLogged || !userStore.isAdmin)) {
-    toast.error('Only Admins can access this page')
-    return false
+    next({ name: 'login' })
+  } else if (to.meta.guestOnly && userStore.isLogged) {
+    next({ name: 'home' })
+  } else if (to.meta.employerOnly && (!userStore.isLogged || !userStore.isEmployer)) {
+    next({ name: 'home' })
+  } else if (to.meta.adminOnly && (!userStore.isLogged || !userStore.isAdmin)) {
+    next({ name: 'home' })
+  } else {
+    next()
   }
 })
 
