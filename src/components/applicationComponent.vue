@@ -25,8 +25,14 @@
             <span class="text-primary">Status: </span> {{ application.status }}
           </p>
 
-          <button @click="cancelApplication(application.id)" class="btn btn-danger">
-            <i class="fas fa-trash"></i> Cancel
+          <button @click="cancelApplication(application.id, index)" class="btn btn-danger" :disabled="isCancelling[index]">
+            <span v-if="isCancelling[index]">
+              <span class="spinner-grow spinner-grow-sm" aria-hidden="true"></span>
+              <span role="status">Cancelling...</span>
+            </span>
+            <span v-else>
+              <i class="fas fa-trash"></i> Cancel
+            </span>
           </button>
         </div>
       </div>
@@ -42,7 +48,8 @@ import 'vue3-toastify/dist/index.css'
 export default {
   data() {
     return {
-      applications: []
+      applications: [],
+      isCancelling: [] 
     }
   },
   created() {
@@ -61,6 +68,8 @@ export default {
           })
           .then((response) => {
             this.applications = response.data
+            
+            this.isCancelling = Array(this.applications.length).fill(false)
           })
           .catch((error) => {
             console.error('Error fetching applications:', error)
@@ -80,10 +89,11 @@ export default {
           return 'white'
       }
     },
-    cancelApplication(applicationId) {
+    cancelApplication(applicationId, index) {
       const accessToken = localStorage.getItem('token')
 
       if (accessToken) {
+        this.isCancelling[index] = true 
         axios
           .delete(`${import.meta.env.VITE_API_URL}/applications/${applicationId}`, {
             headers: {
@@ -91,12 +101,15 @@ export default {
             }
           })
           .then(() => {
-            this.applications = this.applications.filter((app) => app.id !== applicationId)
+            this.applications.splice(index, 1)
             toast.success('Application Deleted Successfully')
           })
           .catch((error) => {
             console.error('Error cancelling application:', error)
             toast.error('Error cancelling application: ' + error)
+          })
+          .finally(() => {
+            this.isCancelling[index] = false 
           })
       }
     }
