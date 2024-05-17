@@ -335,22 +335,6 @@ export default {
           toast.error(response.data.message || 'Failed to post')
         }
 
-        this.job = {
-          title: '',
-          description: '',
-          requirements: '',
-          city: '',
-          country: '',
-          min_salary: 0,
-          max_salary: 10000,
-          min_exp_years: 0,
-          max_exp_years: 0,
-          type: '',
-          remote_type: '',
-          skills: '',
-          industries: '',
-          experience_level: ''
-        }
         this.submitted = false
       } catch (error) {
         toast.error(error.message || 'Failed to post')
