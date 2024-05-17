@@ -32,13 +32,12 @@
     </div>
 
     <!-- Apply Modal -->
-    <div class="modal fade" tabindex="-1" role="dialog" :class="{ 'show': showModal, 'd-block': showModal }">
-      <div class="modal-dialog shadow" role="document">
+    <div class="modal fade " tabindex="-1" role="dialog" :class="{ 'show': showModal, 'd-block': showModal }">
+      <div class="modal-dialog shadow-lg" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title">Apply for {{ job.title }}</h5>
-            <button type="button" class="close" @click="hideApplyModal">
-              <span aria-hidden="true">&times;</span>
+            <h5 class="modal-title me-5">Apply for <span class="text-primary">{{ job.title }}</span> job</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" @click="hideApplyModal">
             </button>
           </div>
           <div class="modal-body">
@@ -78,7 +77,7 @@ export default {
       loading: false,
       error: false,
       showModal: false,
-      cvFile: null
+      resume_path: ''
     };
   },
   mounted() {
@@ -102,25 +101,24 @@ export default {
     },
     hideApplyModal() {
       this.showModal = false;
+      // Reset resume_path when modal is hidden
+      this.resume_path = null;
     },
     handleFileChange(event) {
-      this.cvFile = event.target.files[0];
+      this.resume_path = event.target.files[0];
     },
     async applyForJob() {
-      const formData = new FormData();
-      if (this.cvFile) {
-        formData.append('cv', this.cvFile);
-      }
-      try {
-        const response = await api.post(`/job-posts/${this.$route.params.id}/applications`, formData);
-        console.log('Application posted successfully:', response.data);
-        toast.success('Application posted successfully')
-        this.hideApplyModal();
-      } catch (error) {
-        console.error('Error posting application:', error);
-        toast.error('You have already applied for this job post:' + error);
-      }
-    },
+  try {
+    const response = await api.post(`/job-posts/${this.$route.params.id}/applications`, this.resume_path);
+    console.log('Application posted successfully:', response.data);
+    toast.success('Application posted successfully')
+    this.hideApplyModal();
+  } catch (error) {
+    console.error('Error posting application:', error);
+    toast.error('You have already applied for this job post:' + error);
+  }
+},
+
   },
 };
 </script>
