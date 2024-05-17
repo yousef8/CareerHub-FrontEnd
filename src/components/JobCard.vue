@@ -1,11 +1,10 @@
 <template>
-  <div class="card mb-3">
-
-    <img v-if="user && user.cover_image" :src="user.cover_image" class="card-img-top" alt="Cover Image">
-
+  <div class="card mb-3 d-flex ">
+    
     <div class="card-body">
-      <router-link :to="`/jobs/${job.id}`" class="text-decoration-none text-dark">
-        <h3 class="card-title text-primary">{{ job.title }}</h3>
+      <router-link :to="`/jobs/${job.id}`" class="text-decoration-none text-dark d-flex justify-content-baseline">
+        <img v-if="user && user.cover_image" :src="user.cover_image" class="card-img-top" style="width: 100px; margin: 10px 10px;" alt="Cover Image">
+        <h3 class="card-title text-primary mt-3">{{ job.title }}</h3>
       </router-link>
       <h6 class="card-subtitle mb-2 text-muted">{{ job.company }}</h6>
       <p class="card-text fs-5">
@@ -40,10 +39,12 @@ export default {
       type: Object,
       default: () => ({})
     },
-    user: {
-      type: Object,
-      default: () => ({})
-    }
+   
+  },
+  data() {
+    return {
+      
+    };
   },
   computed: {
     formattedSalary() {
@@ -64,9 +65,21 @@ export default {
         return `${(number / 1000).toFixed(1)}k`;
       }
       return number;
+    },
+    fetchUser() {
+     
     }
+  },
+  created() {
+    const userData = localStorage.getItem('user');
+    if (userData) {
+      this.user = JSON.parse(userData);
+      this.editedUser = { ...this.user };
+    }},
+  mounted() {
+    this.userData;
   }
-}
+};
 </script>
 
 <style scoped>

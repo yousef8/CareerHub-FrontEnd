@@ -4,6 +4,7 @@
     <div v-if="loading" class="text-center fs-4 fw-bold text-primary">Loading...</div>
     <div v-else-if="error" class="text-center fs-4 fw-bold text-danger">Error loading job</div>
     <div v-else class="job-details-container">
+      <img v-if="user && user.cover_image" :src="user.cover_image" class="card-img-top" style="width: 100px; margin: 10px 10px;" alt="Cover Image">
       <h1 class="heading">{{ job.title }}</h1>
       <div class="job-info">
         <p class="location">
@@ -93,6 +94,7 @@ export default {
   },
   mounted() {
     this.fetchJob();
+    this.userData
   },
   setup() {
     const authStore = useUserStore();
@@ -113,6 +115,12 @@ export default {
         this.loading = false;
       }
     },
+    created() {
+    const userData = localStorage.getItem('user');
+    if (userData) {
+      this.user = JSON.parse(userData);
+      this.editedUser = { ...this.user };
+    }},
     showApplyModal() {
       this.showModal = true;
     },
