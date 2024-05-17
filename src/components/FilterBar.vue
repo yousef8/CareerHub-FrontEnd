@@ -8,9 +8,9 @@
         :class="{ 'active-drop-down': filter.city !== '', dropdown: filter.city === '' }"
       >
         <option value="">City</option>
-        <option value="new york">New York</option>
-        <option value="san francisco">San Francisco</option>
-        <option value="los angeles">Los Angeles</option>
+        <option v-for="city in this.params.cities" :value="city" :key="city">
+          {{ city }}
+        </option>
       </select>
 
       <select
@@ -20,9 +20,9 @@
         :class="{ 'active-drop-down': filter.country !== '', dropdown: filter.country === '' }"
       >
         <option value="">Country</option>
-        <option value="usa">USA</option>
-        <option value="canada">Canada</option>
-        <option value="mexico">Mexico</option>
+        <option v-for="country in this.params.countries" :value="country" :key="country">
+          {{ country }}
+        </option>
       </select>
 
       <select
@@ -35,9 +35,11 @@
         }"
       >
         <option value="">Experience level</option>
-        <option value="junior">Junior</option>
-        <option value="mid">Mid</option>
-        <option value="senior">Senior</option>
+        <option value="entry_level">Entry Level</option>
+        <option value="associate">Associate</option>
+        <option value="mid-senior">Mid-Senior</option>
+        <option value="director">Director</option>
+        <option value="executive">Executive</option>
       </select>
 
       <select
@@ -50,12 +52,13 @@
         }"
       >
         <option value="">Min Salary</option>
+        <option value="5000">$5,000</option>
+        <option value="10000">$10,000</option>
+        <option value="20000">$20,000</option>
         <option value="50000">$50,000</option>
-        <option value="60000">$60,000</option>
-        <option value="70000">$70,000</option>
       </select>
 
-      <!-- <select
+      <select
         v-model="filter.max_salary"
         name="max_salary"
         id="max_salary"
@@ -68,9 +71,9 @@
         <option value="50000">$50,000</option>
         <option value="60000">$60,000</option>
         <option value="70000">$70,000</option>
-      </select> -->
+      </select>
 
-      <select
+      <!-- <select
         v-model="filter.posted_after"
         name="posted_after"
         id="posted_after"
@@ -80,10 +83,11 @@
         }"
       >
         <option value="">Date Posted</option>
-        <option value="1">1 day ago</option>
-        <option value="3">3 days ago</option>
-        <option value="7">7 days ago</option>
-      </select>
+        <option :value="Date.now() - ">1 day ago</option>
+        <option :value="Date.now() - 3">3 days ago</option>
+        <option :value="Date.now() - 7">1 week ago</option>
+        <option :value="Date.now() - 30">1 month ago</option>
+      </select> -->
 
       <select
         v-model="filter.skills"
@@ -95,9 +99,9 @@
         }"
       >
         <option value="">Skills</option>
-        <option value="javascript">JavaScript</option>
-        <option value="python">Python</option>
-        <option value="java">Java</option>
+        <option v-for="skill in this.params.skills" :value="skill" :key="skill">
+          {{ skill }}
+        </option>
       </select>
 
       <select
@@ -113,6 +117,7 @@
         <option value="full-time">Full-time</option>
         <option value="part-time">Part-time</option>
         <option value="contract">Contract</option>
+        <option value="freelance">reelance</option>
       </select>
 
       <select
@@ -127,7 +132,7 @@
         <option value="">Remote type</option>
         <option value="remote">Remote</option>
         <option value="hybrid">Hybrid</option>
-        <option value="on-site">On-site</option>
+        <option value="onsite">On-site</option>
       </select>
 
       <select
@@ -140,9 +145,9 @@
         }"
       >
         <option value="">industry</option>
-        <option value="software engineering">Software Engineering</option>
-        <option value="data science">Data Science</option>
-        <option value="web development">Web Development</option>
+        <option v-for="industry in this.params.industries" :value="industry" :key="industry">
+          {{ industry }}
+        </option>
       </select>
       <button @click="applyFilter" class="btn btn-primary">Apply filters</button>
       <button @click="reset" class="btn reset-btn">Reset</button>
@@ -151,6 +156,8 @@
 </template>
 
 <script>
+import api from '@/utilities/axios'
+
 export default {
   name: 'FilterBar',
   data() {
@@ -166,8 +173,12 @@ export default {
         industries: '',
         type: '',
         remote_type: ''
-      }
+      },
+      params: {}
     }
+  },
+  mounted() {
+    this.getParamData()
   },
   methods: {
     reset() {
@@ -181,10 +192,17 @@ export default {
       this.filter.industries = ''
       this.filter.type = ''
       this.filter.remote_type = ''
+      this.$emit('filter', this.filter)
     },
     applyFilter() {
       console.log('Filter applied', this.filter)
       this.$emit('filter', this.filter)
+    },
+    async getParamData() {
+      const response = await api.get(`/params`)
+      const data = await response.data
+      this.params = data
+      console.log('Params:', this.params)
     }
   }
 }
@@ -192,29 +210,32 @@ export default {
 
 <style scoped>
 .dropdown {
+  text-align: center;
   height: 40px;
-  border: 1px solid rgba(34, 34, 34, 0.5);
-  padding: 5px 10px;
+  padding: 5px;
   border-radius: 30px;
-  font-size: 16px;
-  background-color: #ffffff;
+  font-size: 0.8rem;
+  transition: ease;
+  max-width: 150px;
 }
 
 .dropdown:hover {
   cursor: pointer;
-  background-color: #f8f9fa;
+  background-color: #d8d8d8;
+  border: 2px solid rgba(34, 34, 34, 0.4);
 }
 
 .active-drop-down {
-  height: 40px;
-  border: 1px solid rgba(34, 34, 34, 0.5);
-  padding: 5px 10px;
+  text-align: center;
+  padding: 5px;
   border-radius: 30px;
   background-color: rgb(1, 119, 80);
   color: white;
+  font-size: 0.8rem;
   font-weight: 500;
   outline: none;
 }
+
 .active-drop-down:hover {
   cursor: pointer;
   background-color: rgb(1, 91, 61);
@@ -222,9 +243,10 @@ export default {
 }
 
 .btn {
+  padding: 5px;
   height: 40px;
   border-radius: 30px;
-  font-size: 16px;
+  font-size: 1rem;
 }
 
 .reset-btn:hover {
@@ -233,5 +255,21 @@ export default {
   border: 1px solid #f8f9fa;
   font-weight: 500;
   outline: none;
+}
+
+@media (max-width: 768px) {
+  .dropdown,
+  .active-drop-down,
+  .btn {
+    font-size: 0.6rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .dropdown,
+  .active-drop-down,
+  .btn {
+    font-size: 0.4rem;
+  }
 }
 </style>
