@@ -14,7 +14,7 @@
       </div>
       <div class="row">
         <div class="col-md-12 text-center mb-3">
-         Lorem ipsum dolor sit amet consectetur, adipisicing elit. Unde, doloribus.Lorem ipsum dolor sit amet consectetur, adipisicing elit. Unde, doloribus.
+          Five minds, one mission: Abanoub, Fatma, Steven, Youssef, and Mona, led by Engineer Noha  <i class="fas fa-heart fa-beat"></i>, weaving innovation into every aspect of our project.
         </div>
       </div>
       <hr class="bg-light">
