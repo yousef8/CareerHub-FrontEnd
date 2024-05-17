@@ -32,30 +32,34 @@
     </div>
 
     <!-- Apply Modal -->
-    <div class="modal" :class="{ 'is-active': showModal }">
-      <div class="modal-background" @click="hideApplyModal"></div>
-      <div class="modal-content">
-        <div class="box">
-          <h2 class="title">Apply for {{ job.title }}</h2>
-          <div class="field">
-            <label class="label">Upload CV (Optional)</label>
-            <div class="control">
-              <input type="file" class="input" @change="handleFileChange">
+    <div class="modal fade" tabindex="-1" role="dialog" :class="{ 'show': showModal, 'd-block': showModal }">
+      <div class="modal-dialog shadow" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Apply for {{ job.title }}</h5>
+            <button type="button" class="close" @click="hideApplyModal">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="form-group">
+              <label for="cv">Upload CV (Optional)</label>
+              <input type="file" class="form-control-file" id="cv" @change="handleFileChange">
             </div>
           </div>
-          <div class="field">
-            <button class="button is-primary" @click="applyForJob">Apply</button>
-            <button class="button" @click="hideApplyModal">Cancel</button>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" @click="hideApplyModal">Cancel</button>
+            <button type="button" class="btn btn-primary" @click="applyForJob">Apply</button>
           </div>
         </div>
       </div>
-      <button class="modal-close is-large" aria-label="close" @click="hideApplyModal"></button>
     </div>
   </div>
 </template>
 
 <script>
 import api from '@/utilities/axios';
+import { toast } from 'vue3-toastify'
 
 export default {
   data() {
@@ -103,20 +107,20 @@ export default {
       this.cvFile = event.target.files[0];
     },
     async applyForJob() {
-  const formData = new FormData();
-  if (this.cvFile) {
-    formData.append('cv', this.cvFile);
-  }
-  try {
-    const response = await api.post(`/job-posts/${this.$route.params.id}/applications`, formData);
-    console.log('Application posted successfully:', response.data);
-    
-    this.hideApplyModal();
-  } catch (error) {
-    console.error('Error posting application:', error);
-  }
-},
-
+      const formData = new FormData();
+      if (this.cvFile) {
+        formData.append('cv', this.cvFile);
+      }
+      try {
+        const response = await api.post(`/job-posts/${this.$route.params.id}/applications`, formData);
+        console.log('Application posted successfully:', response.data);
+        toast.success('Application posted successfully')
+        this.hideApplyModal();
+      } catch (error) {
+        console.error('Error posting application:', error);
+        toast.error('You have already applied for this job post:' + error);
+      }
+    },
   },
 };
 </script>
@@ -180,38 +184,4 @@ export default {
   margin-left: 10px;
 }
 
-.modal {
-  display: none;
-}
-
-.modal.is-active {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.modal-background {
-  position: fixed;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  background-color: rgba(0, 0, 0, 0.5);
-}
-
-.modal-content {
-  background-color: white;
-  padding: 20px;
-  border-radius: 5px;
-  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.5);
-}
-
-.modal-close {
-  position: absolute;
-  right: 20px;
-  top: 20px;
-  cursor: pointer;
-  background-color: transparent;
-  border: none;
-}
 </style>
