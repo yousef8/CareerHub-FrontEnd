@@ -25,14 +25,18 @@
         </ul>
       </div>
       <div class="actions mt-5">
-        <!-- Apply Button -->
-        <a href="#" class="btn btn-primary" @click.prevent="showApplyModal">Apply Now</a>
+        <!-- Apply Button with Spinner -->
+        <button class="btn btn-primary" type="button" :disabled="loading" @click.prevent="showApplyModal">
+          <span v-if="loading" class="spinner-grow spinner-grow-sm" aria-hidden="true"></span>
+          <span v-if="loading" role="status">Applying...</span>
+          <span v-else>Apply Now</span>
+        </button>
         <a href="#" class="btn btn-secondary">Copy Job link</a>
       </div>
     </div>
 
     <!-- Apply Modal -->
-    <div v-if="authStore.isLogged" class="modal fade " tabindex="-1" role="dialog" :class="{ 'show': showModal, 'd-block': showModal }">
+    <div v-if="authStore.isLogged && authStore.user?.role !== 'employer' " class="modal fade " tabindex="-1" role="dialog" :class="{ 'show': showModal, 'd-block': showModal }">
       <div class="modal-dialog shadow-lg" role="document">
         <div class="modal-content">
           <div class="modal-header">
@@ -48,7 +52,12 @@
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" @click="hideApplyModal">Cancel</button>
-            <button type="button" class="btn btn-primary" @click="applyForJob">Apply</button>
+            <!-- Apply Button with Spinner -->
+            <button type="button" class="btn btn-primary" :disabled="loading" @click="applyForJob">
+              <span v-if="loading" class="spinner-grow spinner-grow-sm" aria-hidden="true"></span>
+              <span v-if="loading" role="status">Applying...</span>
+              <span v-else>Apply</span>
+            </button>
           </div>
         </div>
       </div>
@@ -114,22 +123,24 @@ export default {
     handleFileChange(event) {
       this.resume_path = event.target.files[0];
     },
-  async applyForJob() {
-  try {
-    const formData = new FormData();
-    if (this.resume_path) {
-      formData.append('resume_path', this.resume_path);
+    async applyForJob() {
+      try {
+        this.loading = true; 
+        const formData = new FormData();
+        if (this.resume_path) {
+          formData.append('resume_path', this.resume_path);
+        }
+        const response = await api.post(`/job-posts/${this.$route.params.id}/applications`, formData);
+        console.log('Application posted successfully:', response.data);
+        toast.success('Application posted successfully');
+        this.hideApplyModal();
+      } catch (error) {
+        console.error('Error posting application:', error);
+        toast.error('You have already applied for this job post: ' + error);
+      } finally {
+        this.loading = false; 
+      }
     }
-    const response = await api.post(`/job-posts/${this.$route.params.id}/applications`, formData);
-    console.log('Application posted successfully:', response.data);
-    toast.success('Application posted successfully');
-    this.hideApplyModal();
-  } catch (error) {
-    console.error('Error posting application:', error);
-    toast.error('You have already applied for this job post: ' + error);
-  }
-}
-
   },
 };
 </script>
