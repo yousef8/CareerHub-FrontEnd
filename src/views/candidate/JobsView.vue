@@ -1,6 +1,6 @@
 <template>
   <div>
-    <FilterBar />
+    <FilterBar @filter="recieveFilters" />
     <div class="container mt-4">
       <h2 class="text-center mb-4 fw-bold bg-body-secondary py-2">All Jobs</h2>
       <div v-if="loading" class="text-center fs-4 fw-bold text-primary">Loading...</div>
@@ -25,6 +25,10 @@
 import JobCard from '@/components/JobCard.vue'
 import PaginationComponent from '@/components/PaginationComponent.vue'
 import FilterBar from '@/components/FilterBar.vue'
+import api from '@/utilities/axios'
+import { useSearchStore } from '@/stores/search'
+import { mapState } from 'pinia'
+import { watch } from 'vue'
 
 export default {
   components: {
@@ -37,8 +41,10 @@ export default {
       jobs: [],
       loading: false,
       currentPage: 1,
-      pageSize: 4
-    };
+      pageSize: 4,
+      filter: {},
+      FilterQuery: ''
+    }
   },
   computed: {
     visibleJobs() {
@@ -48,23 +54,31 @@ export default {
     },
     totalPages() {
       return Math.ceil(this.jobs.length / this.pageSize)
-    }
+    },
+    ...mapState(useSearchStore, ['query'])
   },
-  mounted() {
-    this.fetchJobs()
+  async created() {
+    await this.fetchJobs()
+    this.setupQueryWatcher()
   },
   methods: {
     async fetchJobs() {
       this.loading = true
       try {
-        const response = await fetch('http://localhost:8000/api/jobs')
-        const data = await response.json()
+        const response = await api.get(
+          `/job-posts/search?keywords=${this.query}&${this.FilterQuery}`
+        )
+        const data = await response.data
         this.jobs = data
       } catch (error) {
         console.error('Error fetching jobs:', error)
       } finally {
         this.loading = false
       }
+    },
+    recieveFilters(filterFromChild: any) {
+      this.FilterQuery = new URLSearchParams(filterFromChild).toString()
+      this.fetchJobs()
     },
     prevPage() {
       if (this.currentPage > 1) {
@@ -76,8 +90,25 @@ export default {
         this.currentPage++
       }
     },
-    gotoPage(pageNumber) {
+    gotoPage(pageNumber: number) {
       this.currentPage = pageNumber
+    },
+    setupQueryWatcher() {
+      const searchStore = useSearchStore()
+      let timeoutId: number | undefined
+
+      watch(
+        () => searchStore.query,
+        (newQuery) => {
+          if (timeoutId !== undefined) {
+            clearTimeout(timeoutId)
+          }
+          timeoutId = window.setTimeout(() => {
+            searchStore.setSearchQuery(newQuery)
+            this.fetchJobs()
+          }, 1000)
+        }
+      )
     }
   }
 }
