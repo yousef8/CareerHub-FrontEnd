@@ -1,7 +1,7 @@
 <template>
   <nav class="navbar navbar-expand-lg px-2 m-0" style="background-color: #2784fc">
     <a
-      class="navbar-brand fs-1 ms-2 me-lg-5 fw-bold text-white"
+      class="navbar-brand fs-2 ms-2 me-lg-5 fw-bold text-white"
       style="font-family: 'Dancing Script', cursive"
       href="#"
     >
