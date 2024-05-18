@@ -38,7 +38,7 @@
         <button
           class="btn btn-primary"
           type="button"
-          :disabled="loading"
+          :disabled="!authStore.isCandidate || loading"
           @click.prevent="showApplyModal"
         >
           <span v-if="loading" class="spinner-grow spinner-grow-sm" aria-hidden="true"></span>
