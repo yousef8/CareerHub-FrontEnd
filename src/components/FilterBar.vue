@@ -133,8 +133,8 @@
           {{ industry }}
         </option>
       </select>
-      <button @click="applyFilter" class="btn btn-primary">Apply filters</button>
-      <button @click="reset" class="btn reset-btn">Reset</button>
+      <button @click="applyFilter" class="btn btn-primary px-4">Apply</button>
+      <button @click="reset" class="btn reset-btn px-4">Reset</button>
     </div>
   </div>
 </template>
@@ -210,6 +210,7 @@ export default {
 }
 
 .active-drop-down {
+  height: 40px;
   text-align: center;
   padding: 5px;
   border-radius: 30px;

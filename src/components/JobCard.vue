@@ -1,23 +1,34 @@
 <template>
-  <div class="card mb-3 d-flex ">
-    
+  <div class="card mb-3 d-flex">
     <div class="card-body">
-      <router-link :to="`/jobs/${job.id}`" class="text-decoration-none text-dark d-flex justify-content-baseline">
-        <img v-if="user && user.cover_image" :src="user.cover_image" class="card-img-top" style="width: 100px; margin: 10px 10px;" alt="Cover Image">
+      <router-link
+        :to="`/jobs/${job.id}`"
+        class="text-decoration-none text-dark d-flex justify-content-baseline"
+      >
+        <img
+          v-if="user && user.cover_image"
+          :src="user.cover_image"
+          class="card-img-top"
+          style="width: 100px; margin: 10px 10px"
+          alt="Cover Image"
+        />
         <h3 class="card-title text-primary mt-3">{{ job.title }}</h3>
       </router-link>
       <h6 class="card-subtitle mb-2 text-muted">{{ job.company }}</h6>
       <p class="card-text fs-5">
-        <i class="fas fa-map-marker-alt text-secondary"></i> Location: {{ job.city }}, {{ job.country }}
+        <i class="fas fa-map-marker-alt text-secondary"></i> Location: {{ job.city }},
+        {{ job.country }}
       </p>
       <p class="card-text fs-5">
         <i class="fas fa-dollar-sign text-secondary"></i> Salary: {{ formattedSalary }}
       </p>
       <p class="card-text fs-5">
-        <i class="fas fa-clock text-secondary"></i> Experience: {{ job.min_exp_years }} - {{ job.max_exp_years }} years
+        <i class="fas fa-clock text-secondary"></i> Experience: {{ job.min_exp_years }} -
+        {{ job.max_exp_years }} years
       </p>
       <p class="card-text fs-5">
-        <i class="fas fa-cog text-secondary"></i> Type: <span class="badge text-bg-success "> {{ job.type }}</span> 
+        <i class="fas fa-cog text-secondary"></i> Type:
+        <span class="badge text-bg-success"> {{ job.type }}</span>
       </p>
       <p class="card-text fs-5">
         <i class="fas fa-globe text-secondary"></i> Remote: {{ job.remote_type }}
@@ -25,9 +36,9 @@
       <p class="card-text fs-5">
         <i class="fas fa-star text-secondary"></i> Experience Level: {{ job.experience_level }}
       </p>
-      <p class="card-text fs-5">
+      <!-- <p class="card-text fs-5">
         <i class="fas fa-calendar-alt text-secondary"></i> Expires at: {{ formattedExpiresAt }}
-      </p>
+      </p> -->
     </div>
   </div>
 </template>
@@ -38,48 +49,48 @@ export default {
     job: {
       type: Object,
       default: () => ({})
-    },
-   
+    }
   },
   data() {
-    return {
-      
-    };
+    return {}
   },
   computed: {
     formattedSalary() {
-      const minSalary = this.formatNumberToK(this.job.min_salary);
-      const maxSalary = this.formatNumberToK(this.job.max_salary);
-      return `${minSalary} - ${maxSalary}`;
+      const minSalary = this.formatNumberToK(this.job.min_salary)
+      const maxSalary = this.formatNumberToK(this.job.max_salary)
+      return `${minSalary} - ${maxSalary}`
     },
     formattedExpiresAt() {
-      const dateTimeParts = this.job.expires_at.split(' ');
-      const datePart = dateTimeParts[0];
-      const formattedDate = new Date(datePart).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
-      return formattedDate;
+      const dateTimeParts = this.job.expires_at
+      const datePart = dateTimeParts[0]
+      const formattedDate = new Date(datePart).toLocaleDateString('en-US', {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric'
+      })
+      return formattedDate
     }
   },
   methods: {
     formatNumberToK(number) {
       if (number >= 1000) {
-        return `${(number / 1000).toFixed(1)}k`;
+        return `${(number / 1000).toFixed(1)}k`
       }
-      return number;
+      return number
     },
-    fetchUser() {
-     
-    }
+    fetchUser() {}
   },
   created() {
-    const userData = localStorage.getItem('user');
+    const userData = localStorage.getItem('user')
     if (userData) {
-      this.user = JSON.parse(userData);
-      this.editedUser = { ...this.user };
-    }},
+      this.user = JSON.parse(userData)
+      this.editedUser = { ...this.user }
+    }
+  },
   mounted() {
-    this.userData;
+    this.userData
   }
-};
+}
 </script>
 
 <style scoped>
