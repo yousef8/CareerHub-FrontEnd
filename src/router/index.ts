@@ -1,6 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import { useUserStore } from '@/stores/user'
-import { toast } from 'vue3-toastify'
 
 const HomeView = () => import('@/views/HomeView.vue');
 const NotFoundView = () => import('@/views/NotFoundView.vue');
