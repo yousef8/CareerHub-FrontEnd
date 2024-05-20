@@ -2,8 +2,10 @@
   <div>
     <FilterBar @filter="recieveFilters" />
     <div class="container mt-4">
-      <h2 class="text-center mb-4 fw-bold bg-body-secondary py-2">All Jobs</h2>
-      <div v-if="loading" class="text-center fs-4 fw-bold text-primary">Loading...</div>
+      <h2 class="text-center mb-4 fw-bold bg-body-secondary py-2">Jobs</h2>
+      <div v-if="loading" class="text-center fs-4 fw-bold text-primary">
+        <i class="fa fa-spinner fa-spin"></i> Loading...
+      </div>
       <div v-else>
         <div v-if="jobs.length === 0" class="text-center">No jobs available</div>
         <div v-else>
