@@ -200,7 +200,7 @@ export default {
   border-radius: 30px;
   font-size: 0.8rem;
   transition: ease;
-  max-width: 150px;
+  width: 130px;
 }
 
 .dropdown:hover {
