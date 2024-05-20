@@ -231,6 +231,14 @@ export default {
           throw new Error('Max experience years must be greater than min experience years.')
         }
 
+        if (this.job.min_exp_years < 0 || this.job.max_exp_years < 0) {
+          throw new Error('Experience years must be greater than 0')
+        }
+
+        if (this.job.min_salary < 0 || this.job.max_salary < 0) {
+          throw new Error('Salary must be greater than 0')
+        }
+
         this.postJob(this.job)
       } catch (error) {
         toast.error(error.message || 'Failed to post')

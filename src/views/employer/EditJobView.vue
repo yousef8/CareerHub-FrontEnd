@@ -6,15 +6,27 @@
         <div class="mb-3 w-75">
           <label for="title" class="form-label">Job Title</label>
           <button class="edit-b" @click.prevent="toggleEdit('title')">Edit</button>
-          <input v-model="job.title" type="text" id="title" class="form-control" :disabled="!this.activeFields.title" />
+          <input
+            v-model="job.title"
+            type="text"
+            id="title"
+            class="form-control"
+            :disabled="!this.activeFields.title"
+          />
           <div v-if="!job.title && submitted" class="invalid-feedback">Job Title is required.</div>
         </div>
 
         <div class="mb-3 w-75">
           <label for="description" class="form-label">Job Description</label>
           <button class="edit-b" @click.prevent="toggleEdit('description')">Edit</button>
-          <textarea v-model="job.description" id="description" rows="5" class="form-control" required
-            :disabled="!this.activeFields.description"></textarea>
+          <textarea
+            v-model="job.description"
+            id="description"
+            rows="5"
+            class="form-control"
+            required
+            :disabled="!this.activeFields.description"
+          ></textarea>
           <div v-if="!job.description && submitted" class="invalid-feedback">
             Job description is required.
           </div>
@@ -22,8 +34,14 @@
         <div class="mb-3 w-75">
           <label for="requirements" class="form-label">Job Requirements</label>
           <button class="edit-b" @click.prevent="toggleEdit('requirements')">Edit</button>
-          <textarea v-model="job.requirements" id="requirements" rows="5" class="form-control" required
-            :disabled="!this.activeFields.requirements"></textarea>
+          <textarea
+            v-model="job.requirements"
+            id="requirements"
+            rows="5"
+            class="form-control"
+            required
+            :disabled="!this.activeFields.requirements"
+          ></textarea>
           <div v-if="!job.requirements && submitted" class="invalid-feedback">
             Job requirmenets are required.
           </div>
@@ -31,15 +49,26 @@
         <div class="mb-3 w-75">
           <label for="skills" class="form-label">Skills</label>
           <button class="edit-b" @click.prevent="toggleEdit('skills')">Edit</button>
-          <input v-model="this.skillsString" type="text" id="skills" class="form-control"
-            :disabled="!this.activeFields.skills" />
+          <input
+            v-model="this.skillsString"
+            type="text"
+            id="skills"
+            class="form-control"
+            :disabled="!this.activeFields.skills"
+          />
           <div v-if="!job.skills && submitted" class="invalid-feedback">Skills are required.</div>
         </div>
         <div class="mb-3 w-75">
           <label for="industry" class="form-label">Industry</label>
           <button class="edit-b" @click.prevent="toggleEdit('industry')">Edit</button>
-          <input v-model="this.industriesString" type="text" id="industry" class="form-control"
-            :disabled="!this.activeFields.industry" placeholder="e.g. Tech, Finance, Healthcare, etc." />
+          <input
+            v-model="this.industriesString"
+            type="text"
+            id="industry"
+            class="form-control"
+            :disabled="!this.activeFields.industry"
+            placeholder="e.g. Tech, Finance, Healthcare, etc."
+          />
           <div v-if="!job.industry && submitted" class="invalid-feedback">
             Industry is required.
           </div>
@@ -48,8 +77,13 @@
         <div class="mb-3 w-75">
           <label for="experienceLevel" class="form-label">Experience Level</label>
           <button class="edit-b" @click.prevent="toggleEdit('experience_level')">Edit</button>
-          <select v-model="job.experience_level" id="experienceLevel" class="form-control" required
-            :disabled="!this.activeFields.experience_level">
+          <select
+            v-model="job.experience_level"
+            id="experienceLevel"
+            class="form-control"
+            required
+            :disabled="!this.activeFields.experience_level"
+          >
             <option value="">Select Experience Level</option>
             <option value="entry_level">Entry Level</option>
             <option value="associate">Associate</option>
@@ -65,14 +99,26 @@
           <div style="width: 450px">
             <label for="minExpYears" class="form-label">Minimum Experience (Years)</label>
             <button class="edit-b" @click.prevent="toggleEdit('min_exp_years')">Edit</button>
-            <input v-model="job.min_exp_years" type="number" id="minExpYears" class="form-control" required
-              :disabled="!this.activeFields.min_exp_years" />
+            <input
+              v-model="job.min_exp_years"
+              type="number"
+              id="minExpYears"
+              class="form-control"
+              required
+              :disabled="!this.activeFields.min_exp_years"
+            />
           </div>
           <div style="width: 450px">
             <label for="maxExpYears" class="form-label">Maximum Experience (Years)</label>
             <button class="edit-b" @click.prevent="toggleEdit('max_exp_years')">Edit</button>
-            <input v-model="job.max_exp_years" type="number" id="maxExpYears" class="form-control" required
-              :disabled="!this.activeFields.max_exp_years" />
+            <input
+              v-model="job.max_exp_years"
+              type="number"
+              id="maxExpYears"
+              class="form-control"
+              required
+              :disabled="!this.activeFields.max_exp_years"
+            />
           </div>
         </div>
 
@@ -80,15 +126,27 @@
           <div style="width: 450px">
             <label for="city" class="form-label">City</label>
             <button class="edit-b" @click.prevent="toggleEdit('city')">Edit</button>
-            <input v-model="job.city" type="text" id="city" class="form-control" required
-              :disabled="!this.activeFields.city" />
+            <input
+              v-model="job.city"
+              type="text"
+              id="city"
+              class="form-control"
+              required
+              :disabled="!this.activeFields.city"
+            />
             <div v-if="!job.city && submitted" class="invalid-feedback">City is required.</div>
           </div>
           <div style="width: 450px">
             <label for="country" class="form-label">Country</label>
             <button class="edit-b" @click.prevent="toggleEdit('country')">Edit</button>
-            <input v-model="job.country" type="text" id="country" class="form-control" required
-              :disabled="!this.activeFields.country" />
+            <input
+              v-model="job.country"
+              type="text"
+              id="country"
+              class="form-control"
+              required
+              :disabled="!this.activeFields.country"
+            />
             <div v-if="!job.country && submitted" class="invalid-feedback">
               Country is required.
             </div>
@@ -99,21 +157,37 @@
           <div style="width: 450px">
             <label for="minSalary" class="form-label">Minimum Salary (Optional)</label>
             <button class="edit-b" @click.prevent="toggleEdit('min_salary')">Edit</button>
-            <input v-model="job.min_salary" type="number" id="minSalary" class="form-control"
-              :disabled="!this.activeFields.min_salary" />
+            <input
+              v-model="job.min_salary"
+              type="number"
+              id="minSalary"
+              class="form-control"
+              :disabled="!this.activeFields.min_salary"
+            />
           </div>
           <div style="width: 450px">
             <label for="maxSalary" class="form-label">Maximum Salary (Optional)</label>
             <button class="edit-b" @click.prevent="toggleEdit('max_salary')">Edit</button>
-            <input v-model="job.max_salary" type="number" id="maxSalary" class="form-control"
-              :disabled="!this.activeFields.max_salary" />
+            <input
+              v-model="job.max_salary"
+              type="number"
+              id="maxSalary"
+              class="form-control"
+              :disabled="!this.activeFields.max_salary"
+            />
           </div>
         </div>
         <div class="mb-3 w-75 d-flex flex-wrap justify-content-between">
           <div style="width: 450px">
             <label for="type" class="form-label">Job Type</label>
             <button class="edit-b" @click.prevent="toggleEdit('type')">Edit</button>
-            <select v-model="job.type" id="type" class="form-control" required :disabled="!this.activeFields.type">
+            <select
+              v-model="job.type"
+              id="type"
+              class="form-control"
+              required
+              :disabled="!this.activeFields.type"
+            >
               <option value="">Select Job Type</option>
               <option value="full-time">Full Time</option>
               <option value="part-time">Part Time</option>
@@ -124,8 +198,13 @@
           <div style="width: 450px">
             <label for="remoteType" class="form-label">Remote Type</label>
             <button class="edit-b" href="" @click.prevent="toggleEdit('remote_type')">Edit</button>
-            <select v-model="job.remote_type" id="remoteType" class="form-control" required
-              :disabled="!this.activeFields.remote_type">
+            <select
+              v-model="job.remote_type"
+              id="remoteType"
+              class="form-control"
+              required
+              :disabled="!this.activeFields.remote_type"
+            >
               <option value="remote">Remote</option>
               <option value="hybrid">Hybrid</option>
               <option value="on-site">On-Site</option>
@@ -204,21 +283,39 @@ export default {
   methods: {
     handleSubmit(event) {
       event.preventDefault()
-      this.submitted = true
+      try {
+        this.submitted = true
 
-      this.postJob(this.job)
+        const hasEmptyFields = this.requiredFields.some((field) => !this.job[field])
+        const Emptyfields = this.requiredFields.find((field) => !this.job[field])
+        if (hasEmptyFields) {
+          toast.error('Please fill in all required fields.')
+          toast.error(Emptyfields + ' is required')
+          return
+        }
 
-      const hasEmptyFields = this.requiredFields.some((field) => !this.job[field])
-      const Emptyfields = this.requiredFields.find((field) => !this.job[field])
-      if (hasEmptyFields) {
-        toast.error('Please fill in all required fields.')
-        toast.error(Emptyfields + ' is required')
-        console.error('Please fill in all required fields.')
-        return
+        if (this.job.max_salary < this.job.min_salary) {
+          throw new Error('Max salary must be greater than min salary.')
+        }
+
+        if (this.job.max_exp_years < this.job.min_exp_years) {
+          throw new Error('Max experience years must be greater than min experience years.')
+        }
+
+        if (this.job.min_exp_years < 0 || this.job.max_exp_years < 0) {
+          throw new Error('Experience years must be greater than 0')
+        }
+
+        if (this.job.min_salary < 0 || this.job.max_salary < 0) {
+          throw new Error('Salary must be greater than 0')
+        }
+
+        this.postJob(this.job)
+        console.log('Job submitted:', this.job)
+        this.submitted = false
+      } catch (error) {
+        toast.error(error.message || 'Failed to post')
       }
-
-      console.log('Job submitted:', this.job)
-      this.submitted = false
     },
     toggleEdit(field) {
       this.activeFields[field] = true
@@ -286,7 +383,8 @@ export default {
 .job-posting-container {
   padding: 1rem;
   background-color: #ebebeb !important;
-  background: radial-gradient(circle at 0px 0px, rgb(18, 70, 149), rgb(0, 112, 235)) 0px 0px / 100% 460px no-repeat;
+  background: radial-gradient(circle at 0px 0px, rgb(18, 70, 149), rgb(0, 112, 235)) 0px 0px / 100%
+    460px no-repeat;
 }
 
 .job-posting-form {
@@ -336,7 +434,7 @@ export default {
   margin-top: 0.25rem;
 }
 
-.form-control:invalid+.invalid-feedback {
+.form-control:invalid + .invalid-feedback {
   display: block;
 }
 
