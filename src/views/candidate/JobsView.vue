@@ -115,5 +115,7 @@ export default {
 </script>
 
 <style>
-/* Add custom styles here if needed */
+.container {
+  min-height: 1000px;
+}
 </style>
