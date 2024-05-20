@@ -1,7 +1,9 @@
 <template>
   <div>
     <!-- Job Details -->
-    <div v-if="loading" class="text-center fs-4 fw-bold text-primary">Loading...</div>
+    <div v-if="loading" class="text-center fs-4 fw-bold text-primary">
+      <i class="fa fa-spinner fa-spin"></i> Loading...
+    </div>
     <div v-else-if="error" class="text-center fs-4 fw-bold text-danger">Error loading job</div>
     <div v-else class="job-details-container">
       <div class="d-flex justify-content-baseline">

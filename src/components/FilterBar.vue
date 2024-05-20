@@ -200,7 +200,7 @@ export default {
   border-radius: 30px;
   font-size: 0.8rem;
   transition: ease;
-  width: 130px;
+  width: 125px;
 }
 
 .dropdown:hover {
@@ -211,6 +211,7 @@ export default {
 
 .active-drop-down {
   height: 40px;
+  width: 125px;
   text-align: center;
   padding: 5px;
   border-radius: 30px;
